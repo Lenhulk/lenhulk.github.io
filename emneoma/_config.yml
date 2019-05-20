@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 麻瓜的自我修养
+title: 前端麻瓜的自我修养
 subtitle: 伪技术博客
-description: 前端/iOS技术小记
+description: iOS&前端&杂七杂八
 keywords:
-author: NEO & EMMA
+author: NEIL & EMMA
 language:
 timezone:
 
@@ -73,7 +73,13 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+# theme: landscape
+theme: next
+
+# Background-Effect settings
+# add canvas-nest effect
+# see detail from https://github.com/hustcc/canvas-nest.js
+canvas_nest: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
