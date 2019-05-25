@@ -1,8 +1,19 @@
 ---
-title: iOS - 一行代码修改导航栏透明度
+title: iOS - 修改导航栏透明度
 date: 2019-04-20 12:50:33
-tags: iOS_UI
+tags: iOS_Tricks
 categories: iOS
+---
+
+{% blockquote %}
+根据iOS版本的不同，拿到某个子对象修改透明度。
+{% endblockquote %}
+
+{% codeblock lang:objc %}
+[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5]; 
+{% endcodeblock %}
+
+<!-- more -->
 ---
 
 ## 在以前 ##
@@ -21,6 +32,8 @@ if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
     statusBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];
 }
 ```
+
+---
 
 ## iOS10之后 ##
 
@@ -49,3 +62,6 @@ if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
 ```
 
 最终效果：
+
+<!-- {% qnimg 201901/yhdm.png 'class:' extend:?imageMogr2/thumbnail/450x1000/interlace/1/blur/1x0/quality/100|watermark/2/text/RU1ORU9NQS5YWVo=/font/YXJpYWw=/fontsize/240/fill/IzdCNjhFRQ==/dissolve/90/gravity/SouthEast/dx/10/dy/10 %} -->
+{% qnimg 201901/yhdm.png 'class:' extend:-w375 %}

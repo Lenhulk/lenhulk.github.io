@@ -6,6 +6,7 @@
     "version": "3.8.0"
   },
   "dependencies": {
+    "cross-spawn-async": "^2.2.5",
     "hexo": "^3.8.0",
     "hexo-deployer-git": "^1.0.0",
     "hexo-deployer-heroku": "^0.1.2",
@@ -15,10 +16,16 @@
     "hexo-generator-search": "^2.4.0",
     "hexo-generator-searchdb": "^1.0.8",
     "hexo-generator-tag": "^0.2.0",
+    "hexo-qiniu-sync": "^1.4.7",
     "hexo-renderer-ejs": "^0.3.1",
-    "hexo-renderer-marked": "^0.3.2",
+    "hexo-renderer-marked": "^1.0.1",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3",
+    "hexo-symbols-count-time": "^0.6.0",
     "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1"
   }
 }
