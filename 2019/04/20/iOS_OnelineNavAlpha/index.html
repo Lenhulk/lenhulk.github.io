@@ -103,18 +103,20 @@
 
 
 
-  <meta name="description" content="在以前我们可以通过当前控制器的NavigationController再获取到navigatioBar导航条，修改导航条的barTintColor属性去修改它的透明度： 1self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:1.0 alpha:0.5]; 但如果是沉浸式背景，那么状态栏stat">
-<meta name="keywords" content="iOS_UI">
+  <meta name="description" content="根据iOS版本的不同，拿到某个子对象修改透明度。   1[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5];">
+<meta name="keywords" content="iOS_Tricks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS - 一行代码修改导航栏透明度">
+<meta property="og:title" content="iOS - 修改导航栏透明度">
 <meta property="og:url" content="http://emneoma.xyz/2019/04/20/iOS_OnelineNavAlpha/index.html">
 <meta property="og:site_name" content="麻瓜的自我修养">
-<meta property="og:description" content="在以前我们可以通过当前控制器的NavigationController再获取到navigatioBar导航条，修改导航条的barTintColor属性去修改它的透明度： 1self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:1.0 alpha:0.5]; 但如果是沉浸式背景，那么状态栏stat">
+<meta property="og:description" content="根据iOS版本的不同，拿到某个子对象修改透明度。   1[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5];">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-20T17:40:04.379Z">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201901/yhdm.png-w375">
+<meta property="og:updated_time" content="2019-05-25T12:51:18.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS - 一行代码修改导航栏透明度">
-<meta name="twitter:description" content="在以前我们可以通过当前控制器的NavigationController再获取到navigatioBar导航条，修改导航条的barTintColor属性去修改它的透明度： 1self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:1.0 alpha:0.5]; 但如果是沉浸式背景，那么状态栏stat">
+<meta name="twitter:title" content="iOS - 修改导航栏透明度">
+<meta name="twitter:description" content="根据iOS版本的不同，拿到某个子对象修改透明度。   1[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5];">
+<meta name="twitter:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201901/yhdm.png-w375">
 
 
 
@@ -132,7 +134,7 @@
   };
 </script>
 
-  <title>iOS - 一行代码修改导航栏透明度 | 麻瓜的自我修养</title>
+  <title>iOS - 修改导航栏透明度 | 麻瓜的自我修养</title>
   
 
 
@@ -350,6 +352,8 @@
   
 
   
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
@@ -373,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS - 一行代码修改导航栏透明度
+          <h1 class="post-title" itemprop="name headline">iOS - 修改导航栏透明度
 
               
             
@@ -416,7 +420,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-21 01:40:04" itemprop="dateModified" datetime="2019-05-21T01:40:04+08:00">2019-05-21</time>
+                <time title="Modified: 2019-05-25 20:51:18" itemprop="dateModified" datetime="2019-05-25T20:51:18+08:00">2019-05-25</time>
               
             
           </span>
@@ -468,17 +472,30 @@
       
 
       
-        <h2 id="在以前"><a href="#在以前" class="headerlink" title="在以前"></a>在以前</h2><p>我们可以通过当前控制器的<em>NavigationController</em>再获取到<em>navigatioBar</em>导航条，修改导航条的<em>barTintColor</em>属性去修改它的透明度：</p>
+        <blockquote><p>根据iOS版本的不同，拿到某个子对象修改透明度。</p>
+</blockquote>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[[<span class="keyword">self</span>.navigationController.navigationBar subviews] objectAtIndex:<span class="number">0</span>] setAlpha:<span class="number">0.5</span>]; </span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<hr>
+<h2 id="在以前"><a href="#在以前" class="headerlink" title="在以前"></a>在以前</h2><p>我们可以通过当前控制器的_NavigationController_再获取到<em>navigatioBar</em>导航条，修改导航条的<em>barTintColor</em>属性去修改它的透明度：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationController.navigationBar.barTintColor = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1.0</span> alpha:<span class="number">0.5</span>];</span><br></pre></td></tr></table></figure>
+
 <p>但如果是沉浸式背景，那么状态栏statusBar的白色/黑色背景又会和导航栏出现颜色不同，因此我们还得同时修改statusBar的背景颜色：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span> *statusBar = [[[<span class="built_in">UIApplication</span> sharedApplication] valueForKey:<span class="string">@"statusBarWindow"</span>] valueForKey:<span class="string">@"statusBar"</span>];</span><br><span class="line"><span class="keyword">if</span> ([statusBar respondsToSelector:<span class="keyword">@selector</span>(setBackgroundColor:)]) &#123;</span><br><span class="line">    statusBar.backgroundColor = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1.0</span> alpha:<span class="number">0.5</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
 <h2 id="iOS10之后"><a href="#iOS10之后" class="headerlink" title="iOS10之后"></a>iOS10之后</h2><p><em>barTintColor</em>设置半透明颜色不起作用了。</p>
 <p>可以用另外一种设置方式：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到navigationBar的背景view，然后设置alpha值，这样会连statusBar背景一并修改了</span></span><br><span class="line">[[[<span class="keyword">self</span>.navigationController.navigationBar subviews] objectAtIndex:<span class="number">0</span>] setAlpha:<span class="number">0.5</span>];</span><br></pre></td></tr></table></figure>
+
 <p>如果不起作用 或者 别的控制器将导航栏上面的东西改了回去…<br>我们可能需要设置下面两个参数<br>在viewWillAppear方法中加上这两行代码，再结合上面的方法修改透明度。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillAppear&#123;</span><br><span class="line">  [<span class="keyword">super</span> viewWillAppear];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置导航栏为有点透明的效果，注意如果设置了这个参数，控制器中有scrollView的可能会向上偏移64px，也就是回到默认会被导航栏遮住的位置</span></span><br><span class="line">  <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">YES</span>;  </span><br><span class="line">  <span class="comment">// 将导航条背景改为透明</span></span><br><span class="line">  <span class="keyword">self</span>.navigationController.navigationBar.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最终效果：</p>
 
+<p>最终效果：</p>
+<!-- <img src="http://ps1z14rsd.bkt.clouddn.com/images/201901/yhdm.png?imageMogr2/thumbnail/450x1000/interlace/1/blur/1x0/quality/100|watermark/2/text/RU1ORU9NQS5YWVo=/font/YXJpYWw=/fontsize/240/fill/IzdCNjhFRQ==/dissolve/90/gravity/SouthEast/dx/10/dy/10"> -->
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201901/yhdm.png-w375">
       
     </div>
 
@@ -501,7 +518,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS-UI/" rel="tag"><i class="fa fa-tag"></i> iOS_UI</a>
+            <a href="/tags/iOS-Tricks/" rel="tag"><i class="fa fa-tag"></i> iOS_Tricks</a>
           
         </div>
       
@@ -819,7 +836,7 @@
       
     
   
-  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="true"></script>
+  <script color="123,104,238" opacity="0.7" zindex="-1" count="123" src="true"></script>
 
 
 
@@ -830,6 +847,8 @@
 
 
 
+
+  
 
 
 
@@ -841,6 +860,9 @@
 
   
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
 
 
   
