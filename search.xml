@@ -16,15 +16,4 @@
     <url>%2F2019%2F05%2F21%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
-  <entry>
-    <title><![CDATA[iOS - 修改导航栏透明度]]></title>
-    <url>%2F2019%2F04%2F20%2FiOS_OnelineNavAlpha%2F</url>
-    <content type="text"><![CDATA[根据iOS版本的不同，拿到某个子对象修改透明度。 1[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5]; 在以前我们可以通过当前控制器的_NavigationController_再获取到navigatioBar导航条，修改导航条的barTintColor属性去修改它的透明度： 1self.navigationController.navigationBar.barTintColor = [UIColor colorWithWhite:1.0 alpha:0.5]; 但如果是沉浸式背景，那么状态栏statusBar的白色/黑色背景又会和导航栏出现颜色不同，因此我们还得同时修改statusBar的背景颜色： 1234UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) &#123; statusBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.5];&#125; iOS10之后barTintColor设置半透明颜色不起作用了。 可以用另外一种设置方式： 12//找到navigationBar的背景view，然后设置alpha值，这样会连statusBar背景一并修改了[[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0.5]; 如果不起作用 或者 别的控制器将导航栏上面的东西改了回去…我们可能需要设置下面两个参数在viewWillAppear方法中加上这两行代码，再结合上面的方法修改透明度。 12345678- (void)viewWillAppear&#123; [super viewWillAppear]; // 设置导航栏为有点透明的效果，注意如果设置了这个参数，控制器中有scrollView的可能会向上偏移64px，也就是回到默认会被导航栏遮住的位置 self.navigationController.navigationBar.translucent = YES; // 将导航条背景改为透明 self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];&#125; 最终效果：]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>iOS_Tricks</tag>
-      </tags>
-  </entry>
 </search>
