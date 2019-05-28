@@ -8,7 +8,7 @@ subtitle: 伪技术博客(iOS/前端/杂七杂八)
 description: 人生没有意义，只有表现形式。
 keywords:
 author: NEIL & EMMA
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -114,4 +114,11 @@ qiniu:
     folder: js
   css:
     folder: css
+
+# 站内搜索
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 
