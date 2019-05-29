@@ -103,17 +103,25 @@
 
 
 
-  <meta name="description" content="人生没有意义，只有表现形式。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://emneoma.xyz/about/index.html">
+  <meta name="description" content="iOS的内存管理策略是什么？ARC又是为了什么而诞生的？这都是好问题。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS内存管理原理浅谈">
+<meta property="og:url" content="http://emneoma.xyz/2019/05/30/iOS内存管理原理浅谈/index.html">
 <meta property="og:site_name" content="麻瓜的自我修养">
-<meta property="og:description" content="人生没有意义，只有表现形式。">
+<meta property="og:description" content="iOS的内存管理策略是什么？ARC又是为了什么而诞生的？这都是好问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-28T17:23:05.894Z">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-ref-count1.png">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-2.png">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-3.png">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-4.png">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-instruments-5.png">
+<meta property="og:updated_time" content="2019-05-29T18:12:40.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="人生没有意义，只有表现形式。">
+<meta name="twitter:title" content="iOS内存管理原理浅谈">
+<meta name="twitter:description" content="iOS的内存管理策略是什么？ARC又是为了什么而诞生的？这都是好问题。">
+<meta name="twitter:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
 
 
 
@@ -121,7 +129,7 @@
 
   
   
-  <link rel="canonical" href="http://emneoma.xyz/about/">
+  <link rel="canonical" href="http://emneoma.xyz/2019/05/30/iOS内存管理原理浅谈/">
 
 
 
@@ -131,7 +139,7 @@
   };
 </script>
 
-  <title>about | 麻瓜的自我修养</title>
+  <title>iOS内存管理原理浅谈 | 麻瓜的自我修养</title>
   
 
 
@@ -242,7 +250,7 @@
         
         
           
-          <li class="menu-item menu-item-about menu-item-active">
+          <li class="menu-item menu-item-about">
 
     
     
@@ -364,78 +372,279 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://emneoma.xyz/2019/05/30/iOS内存管理原理浅谈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NEIL & EMMA">
+      <meta itemprop="description" content="人生没有意义，只有表现形式。">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/22658824?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麻瓜的自我修养">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">about
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">iOS内存管理原理浅谈
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-30 00:52:16 / 修改时间：02:12:40" itemprop="dateCreated datePublished" datetime="2019-05-30T00:52:16+08:00">2019-05-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <blockquote>
+<p>iOS的内存管理策略是什么？ARC又是为了什么而诞生的？这都是好问题。</p>
+</blockquote>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
+
+<a id="more"></a>
+
+
+<p><em>2011 年，苹果在 WWDC 大会上提出了自动的引用计数（ARC）。<br>ARC 背后的原理是依赖编译器的静态分析能力，通过在编译时找出合理的位置，自动插入引用计数管理代码，从而彻底解放被内存管理禁锢的<del>码农</del>iOS开发者。</em></p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>引用计数（Reference Count）是一个简单而有效的管理对象生命周期的方式。</p>
+<p>当我们创建一个新对象的时候，它的引用计数为 1，当有一个新的指针指向这个对象时，我们将其引用计数加 1，当某个指针不再指向这个对象是，我们将其引用计数减 1，当对象的引用计数变为 0 时，说明这个对象不再被任何指针指向了，这个时候我们就可以将对象销毁，回收内存。</p>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-ref-count1.png">
+
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>在没有引用计数的情况下，一般内存管理的原则是 “谁申请谁释放”，但是当多个对象需要引用到某一个X对象/变量时，哪些对象需要长时间使用X对象，都会遇到谁来销毁X对象的问题。<br>引用计数的出现，使得对象在被创建和使用时<em>retain count</em> +1，使用完后-1，对象的生命周期就可以交给引用计数来记录。</p>
+<h3 id="不要向已经释放的对象发送消息"><a href="#不要向已经释放的对象发送消息" class="headerlink" title="不要向已经释放的对象发送消息"></a>不要向已经释放的对象发送消息</h3><p>当某个对象的内存已经被回收，但是我们没有对他置空(nil)，仍然向它发送消息时，如果该内存被复用了，很可能会造成程序异常崩溃，也被称为僵尸对象或者野指针异常。</p>
+<h2 id="ARC"><a href="#ARC" class="headerlink" title="ARC"></a>ARC</h2><p>ARC 能解决 iOS 开发中 “极大部分” 的内存管理问题，但是开发者仍然需要注意：</p>
+<ul>
+<li>iOS 底层的 ** Core Foundation 对象 ** 不在 ARC 的管理下，需要手工管理它们的引用计数。</li>
+<li>避免循环引用问题。</li>
+<li>block及delegate的内存管理。</li>
+</ul>
+<h3 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h3><p>引用计数这种管理内存的方式有一个比较大的瑕疵，即不能很好的解决循环引用（Reference Cycle）问题。</p>
+<p>对象 A 和对象 B，相互引用了对方作为自己的成员变量，只有当自己销毁时，才会将成员变量的引用计数减 1。这两个对象的销毁依赖于对方的销毁，即使在外界已经没有任何指针能够访问到它们了，它们也无法被释放。</p>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-2.png">
+
+<p>多个对象依次持有对方，形式一个环状，也可以造成循环引用问题，而且在真实编程环境中，这种情况更难被发现。</p>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-3.png">
+
+<h4 id="主动断开"><a href="#主动断开" class="headerlink" title="主动断开"></a>主动断开</h4><p>如果程序员明确知道这里会存在循环引用，在合理的位置主动断开环中的一个引用，使得对象得以回收。例如如下一个引用链：</p>
+<ol>
+<li>Controller 持有了网络请求对象</li>
+<li>网络请求对象持有了回调的 block</li>
+<li>回调的 block 里面使用了 self（即持有了 Controller）</li>
+</ol>
+<p>解决办法就是，在网络请求结束，网络请求对象执行完 block 之后，主动释放对于 block 的持有，以便打破循环引用。（xxx.Block = nil）</p>
+<h4 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h4><p>弱引用虽然持有对象，但是并不增加引用计数，这样就避免了循环引用的产生。</p>
+<p>在 iOS 开发中，弱引用通常在 delegate 模式中使用，View Controller 的 delegate 成员变量通常是一个弱引用，以避免两个 ViewController 造成循环引用问题，例如tableView的delegate。</p>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-4.png">
+
+<h5 id="弱引用的实现原理"><a href="#弱引用的实现原理" class="headerlink" title="弱引用的实现原理"></a>弱引用的实现原理</h5><p>系统对于每一个有弱引用的对象，都维护一个表来记录它所有的弱引用的指针地址。当一个对象的引用计数为 0 时，系统就通过这张表，找到所有的弱引用指针，继而把它们都置成 nil。</p>
+<p>从原理我们得知，弱引用的使用是有<strong><strong>额外开销</strong></strong>的。虽然这个开销很小，但是如果一个地方我们肯定它不需要弱引用的特性，就不应该盲目使用弱引用，因为：</p>
+<ul>
+<li>当我们在创建这个对象时，如果临时使用一个弱引用持有它，就会因为 weak 变量并不持有对象，就会造成一个对象刚被创建就销毁掉。</li>
+<li>大部分 ViewController 的视图对象的生命周期与 ViewController 本身是一致的，没有必要额外做这个事情。</li>
+</ul>
+<h2 id="Xcode-检测循环引用"><a href="#Xcode-检测循环引用" class="headerlink" title="Xcode 检测循环引用"></a>Xcode 检测循环引用</h2><p>在 Xcode 的菜单栏选择：Product -&gt; Profile，然后选择 “Leaks”，再点击右下角的”Profile” 按钮开始检测。</p>
+<p>我们在模拟器里进行一些界面的切换。如果出现了内存泄漏，就可以在 Instruments 中看到红色的带”x”的图标写着“n new leaks”..</p>
+<p>点击 “Leaks Checks” 栏，再点击”Cycles &amp; Roots”，就可以看到以图形方式显示出来的循环引用。可以比较方便地找到循环引用的对象了。如图：</p>
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-instruments-5.png">
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/26/“git-add-”-not-worked-“诡异”问题解决/" rel="next" title="“git add .” not worked - “诡异”问题解决">
+                <i class="fa fa-chevron-left"></i> “git add .” not worked - “诡异”问题解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ1My8yMDk4NQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -455,8 +664,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -590,6 +808,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数"><span class="nav-number">1.</span> <span class="nav-text">引用计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决的问题"><span class="nav-number">1.2.</span> <span class="nav-text">解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要向已经释放的对象发送消息"><span class="nav-number">1.3.</span> <span class="nav-text">不要向已经释放的对象发送消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC"><span class="nav-number">2.</span> <span class="nav-text">ARC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环引用"><span class="nav-number">2.1.</span> <span class="nav-text">循环引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主动断开"><span class="nav-number">2.1.1.</span> <span class="nav-text">主动断开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#弱引用"><span class="nav-number">2.1.2.</span> <span class="nav-text">弱引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#弱引用的实现原理"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">弱引用的实现原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Xcode-检测循环引用"><span class="nav-number">3.</span> <span class="nav-text">Xcode 检测循环引用</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -785,6 +1020,23 @@
 
   
 
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/05/30/iOS内存管理原理浅谈/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
 
 
   
