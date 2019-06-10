@@ -5,9 +5,7 @@ tags: git
 categories: git
 ---
 
-{% blockquote %}
-听终端的话，别留下warning。
-{% endblockquote %}
+<div class="note warning"><p>听终端的话，别留下warning。</p></div>
 
 {% codeblock lang:bash %}
 $ git add .
