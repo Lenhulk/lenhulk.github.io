@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="iOS的内存管理策略是什么？ ARC又是为了什么而诞生的？ 来自面试官的拷问">
-<meta name="keywords" content="iOS">
+<meta name="keywords" content="iOS,基础知识,ARC,内存管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS内存管理原理浅谈">
 <meta property="og:url" content="http://emneoma.xyz/2019/05/30/iOS内存管理原理浅谈/index.html">
 <meta property="og:site_name" content="麻瓜的自我修养">
 <meta property="og:description" content="iOS的内存管理策略是什么？ ARC又是为了什么而诞生的？ 来自面试官的拷问">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
+<meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/arc-pic.jpg">
 <meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-ref-count1.png">
 <meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-2.png">
 <meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-3.png">
 <meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-cycle-4.png">
 <meta property="og:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/memory-instruments-5.png">
-<meta property="og:updated_time" content="2019-05-30T12:17:40.785Z">
+<meta property="og:updated_time" content="2019-06-22T16:34:00.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS内存管理原理浅谈">
 <meta name="twitter:description" content="iOS的内存管理策略是什么？ ARC又是为了什么而诞生的？ 来自面试官的拷问">
-<meta name="twitter:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
+<meta name="twitter:image" content="http://ps1z14rsd.bkt.clouddn.com/images/201905/arc-pic.jpg">
 
 
 
@@ -437,12 +437,24 @@
                 
               
 
-              <time title="创建时间：2019-05-30 00:52:16 / 修改时间：20:17:40" itemprop="dateCreated datePublished" datetime="2019-05-30T00:52:16+08:00">2019-05-30</time>
+              <time title="创建时间：2019-05-30 00:52:16" itemprop="dateCreated datePublished" datetime="2019-05-30T00:52:16+08:00">2019-05-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-23 00:34:00" itemprop="dateModified" datetime="2019-06-23T00:34:00+08:00">2019-06-23</time>
               
             
           </span>
@@ -534,7 +546,7 @@
 <p><strong>来自面试官的拷问</strong></p>
 </blockquote>
 
-<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/opl-big19.jpg">
+<img src="http://ps1z14rsd.bkt.clouddn.com/images/201905/arc-pic.jpg">
 
 <a id="more"></a>
 
@@ -604,6 +616,12 @@
         <div class="post-tags">
           
             <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+          
+            <a href="/tags/基础知识/" rel="tag"><i class="fa fa-tag"></i> 基础知识</a>
+          
+            <a href="/tags/ARC/" rel="tag"><i class="fa fa-tag"></i> ARC</a>
+          
+            <a href="/tags/内存管理/" rel="tag"><i class="fa fa-tag"></i> 内存管理</a>
           
         </div>
       
@@ -746,7 +764,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -764,45 +794,37 @@
                 <span class="links-of-author-item">
                   
                   
-                    
-                  
                   
                     
                   
-                  <a href="https://github.com/Lenhulk" title="GitHub &rarr; https://github.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/Lenhulk" title="GitHub &rarr; https://github.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
                 </span>
               
                 <span class="links-of-author-item">
                   
                   
-                    
-                  
                   
                     
                   
-                  <a href="mailto:Neooooops@gmail.com" title="E-Mail &rarr; mailto:Neooooops@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <a href="mailto:Neooooops@gmail.com" title="E-Mail &rarr; mailto:Neooooops@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
                 </span>
               
                 <span class="links-of-author-item">
                   
                   
-                    
-                  
                   
                     
                   
-                  <a href="https://www.facebook.com/Lenhulk" title="FB Page &rarr; https://www.facebook.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  <a href="https://www.facebook.com/Lenhulk" title="FB Page &rarr; https://www.facebook.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
                 </span>
               
                 <span class="links-of-author-item">
                   
                   
-                    
-                  
                   
                     
                   
-                  <a href="https://www.instagram.com/neooops" title="Instagram &rarr; https://www.instagram.com/neooops" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  <a href="https://t.me/emneoma" title="Telegram &rarr; https://t.me/emneoma" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i></a>
                 </span>
               
             </div>
