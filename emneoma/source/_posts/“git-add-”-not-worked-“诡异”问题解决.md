@@ -1,7 +1,7 @@
 ---
 title: “git add .” not worked - “诡异”问题解决
 date: 2019-05-26 03:25:19
-tags: git
+tags: [git,debug]
 categories: git
 ---
 

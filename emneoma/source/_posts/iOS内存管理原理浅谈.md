@@ -1,7 +1,7 @@
 ---
 title: iOS内存管理原理浅谈
 date: 2019-05-30 00:52:16
-tags: iOS
+tags: [iOS,ARC,内存管理,基础知识]
 categories: iOS
 ---
 
@@ -11,7 +11,7 @@ iOS的内存管理策略是什么？ ARC又是为了什么而诞生的？
 **来自面试官的拷问**
 {% endcq %}
 
-{% qnimg 201905/opl-big19.jpg %}
+{% qnimg 201905/arc-pic.jpg %}
 
 <!-- more -->
 

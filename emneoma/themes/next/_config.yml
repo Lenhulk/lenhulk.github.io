@@ -209,12 +209,13 @@ social:
   #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
-  Instagram: https://www.instagram.com/neooops || instagram
+  #Instagram: https://www.instagram.com/neooops || instagram
   #Skype: skype:yourname?call|chat || skype
+  Telegram: https://t.me/emneoma || telegram
 
 social_icons:
   enable: true
-  icons_only: false
+  icons_only: true
   transition: false
 
 # Blog rolls
