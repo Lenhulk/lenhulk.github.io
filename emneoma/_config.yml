@@ -115,10 +115,24 @@ qiniu:
   css:
     folder: css
 
-# 站内搜索
-search:
-  path: search.xml
-  field: post
-  format: html
-  limit: 10000
-
+# 动画模型
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-hijiki
+  display:
+    position: left
+    width: 150
+    height: 300
+    hOffset: 55
+  mobile:
+    show: true
+    scale: 0.5
+  react:
+    opacity: 0.9
