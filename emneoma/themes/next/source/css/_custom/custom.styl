@@ -17,3 +17,28 @@
 	background: #fff;
 	opacity: 0.9;
 }
+
+
+// 自定义的数字块
+// eg: <span id="inline-toc">1.</span>
+span#inline-toc {
+    display: inline-block;
+    border-radius: 80% 100% 90% 20%;
+    background-color: rgb(227, 242, 253);
+    color: #555;
+    padding: 0.05em 0.4em;
+    margin: 2px 5px 2px 0px;
+    line-height: 1.5;
+}
+
+
+// 自定义的引用样式
+// eg: <blockquote class="question">内容</blockquote>
+blockquote.question {
+    color: #555;
+    border-left: 4px solid rgb(16, 152, 173); // 边框颜色和粗细
+    background-color: rgb(227, 242, 253); // 背景颜色
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-bottom: 20px;
+}
