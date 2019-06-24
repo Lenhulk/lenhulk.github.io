@@ -136,3 +136,13 @@ live2d:
     scale: 0.5
   react:
     opacity: 0.9
+
+# 站点地图sitemap
+Plugins:
+- hexo-generator-baidu-sitemap
+- hexo-generator-sitemap
+
+baidusitemap:
+    path: baidusitemap.xml
+sitemap:
+    path: sitemap.xml
