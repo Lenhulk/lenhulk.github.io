@@ -95,25 +95,25 @@ symbols_count_time:
   total_time: true
 
 # 七牛
-qiniu:
-  offline: false
-  sync: true
-  bucket: myblogbucket
-  # secret_file: sec/qn.json or C:
-  access_key: RATU6GIQZIg29lQQ1s7f_xM6IfSjXovAf6q-XdNz
-  secret_key: iOaV0M8fMmJPf7xxyUZ7-aiulMsQwd_WYnU1QEgh
-  dirPrefix: 
-  urlPrefix: http://ps1z14rsd.bkt.clouddn.com
-  up_host: http://upload.qiniu.com
-  local_dir: static
-  update_exist: true
-  image: 
-    folder: images
-    extend: 
-  js:
-    folder: js
-  css:
-    folder: css
+# qiniu:
+#   offline: false
+#   sync: true
+#   bucket: myblogbucket
+#   # secret_file: sec/qn.json or C:
+#   access_key: RATU6GIQZIg29lQQ1s7f_xM6IfSjXovAf6q-XdNz
+#   secret_key: iOaV0M8fMmJPf7xxyUZ7-aiulMsQwd_WYnU1QEgh
+#   dirPrefix: static
+#   urlPrefix: http://ps1z14rsd.bkt.clouddn.com/static
+#   up_host: http://upload.qiniu.com
+#   local_dir: static
+#   update_exist: true
+#   image: 
+#     folder: images
+#     extend: 
+#   js:
+#     folder: js
+#   css:
+#     folder: css
 
 # 动画模型
 live2d:
