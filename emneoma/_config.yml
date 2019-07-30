@@ -87,6 +87,9 @@ deploy:
   type: git
   repository: https://github.com/Lenhulk/lenhulk.github.io
   branch: master
+  # repo:
+  #   github: https://github.com/Lenhulk/lenhulk.github.io,master
+  #   coding: git@e.coding.net:emneoma/EMNEOMA.git,master
 
 # 字数统计
 symbols_count_time:
