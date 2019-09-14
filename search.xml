@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[iOS检测企业包(.ipa)掉签脚本]]></title>
+    <url>%2FiOS%E6%A3%80%E6%B5%8B%E4%BC%81%E4%B8%9A%E5%8C%85(.ipa)%E6%8E%89%E7%AD%BE%E8%84%9A%E6%9C%AC.html</url>
+    <content type="text"><![CDATA[“客户装不上app啦！”“客户打开app闪退啦！”“ios检查一下是不是掉签啦！” 遇到企业证书被Revoke的情况，会导致已装好并且手动信任的企业包app打开闪退，或新用户装上app图标是灰色的。 太烦了，每次检查要重新下载安装一次确认，浪费时间，流量，又没有技术含量，不能每次都要因为这种问题浪费宝贵的时间，而且是否掉签我们作为开发要用事实&amp;数据说话！ 我们可以用Apple自带的codesign命令对app文件内的签名导出 再通过OpenSSL命令去检查证书的有效期 如果检查不到有效期或者显示了”Revoked”，自然表示签名不可用，也意味着证书挂了。参考了几篇文（找不到了），并弄了一个脚本： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657# USAGE: ./checkSign.sh &#123;ipa文件名：xxx.ipa&#125;# 看到⚠️证明该ipa证书签名有问题# 删除文件echo "🗑 删除codesign,pem,plist,和“Payload”文件夹及其子文件"if [ -d "Payload" ] ; thenrm -rf Payloadfirm -f codesign0rm -f codesign1rm -f codesign2rm -f *.pemrm -f *.plistrm -f iTunesArtwork# 参数检查canshu=$1ipaFile=$&#123;canshu##*/&#125;# 截取&amp;拼接.appappFile=$&#123;ipaFile%.*&#125;".app"islegal=$(echo $1 | grep ".ipa$")echo "👀 请检查参数"echo "ipa: $ipaFile"echo "app: $appFile"if [ -n "$islegal" ]; then if [ ! -f "$ipaFile" ]; then echo "❌ “$1”文件不存在，结束进程" exit 0 fielse echo "❌ 参数格式必须是文件全名:xxx.ipa，结束进程" exit 0fi# 解压unzip -q $ipaFile# 导出签名codesign -dvv --extract-certificates Payload/*.appif [ ! -f "codesign0" ] || [ ! -f "codesign1" ] || [ ! -f "codesign2" ]; then echo "⚠️ 导出codesign完整3个文件失败，该ipa文件证书过期或者被损坏" #TODO: 可在这里做替换ipa操作else openssl x509 c-inform DER -in codesign0 -out codesign0.pem openssl x509 -inform DER -in codesign1 -out codesign1.pem openssl x509 -inform DER -in codesign2 -out codesign2.pem cat codesign1.pem codesign2.pem &gt; cachain.pem openssl x509 -inform DER -in codesign0 -noout -nameopt -oneline -subject -serial -dates if openssl ocsp -issuer cachain.pem -cert codesign0.pem -url `openssl x509 -in codesign0.pem -noout -ocsp_uri` -CAfile cachain.pem -header 'host' 'ocsp.apple.com' | grep revoked ; then echo "⚠️ 证书被Revoke，请替换" #TODO: 可在这里做替换ipa操作 else echo "💯执行完毕，该ipa包证书可用" fifi 这个脚本可以丢给运维，让他做定时检查，他还可以做掉签报警和切换等..以后掉签问题问运维，不要再来问我啦～（别打扰我摸鱼）]]></content>
+      <tags>
+        <tag>iOS</tag>
+        <tag>企业签名</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[iOS应用内检测网络连接是否开启代理(VPN)]]></title>
     <url>%2FiOS%E5%BA%94%E7%94%A8%E5%86%85%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AF%E4%BB%A3%E7%90%86-VPN.html</url>
     <content type="text"><![CDATA[标题我也不想取这么长… 有时候在开发中会遇到这样的需求： 我们需要检测用户的网络IP地址是否开启了代理（VPN），防止一些用户通过关闭GPS，让我们的IP定位错误，非法获取我们限制了地域的优惠，或者是传递虚假网络信息。 我们可以通过判断“tap tun ipsec ppp” 这些字段是否在“CFNetworkCopySystemProxySettings”里，来判断vpn是否开启。 完整方法在此： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253- (BOOL)isVPNOn&#123; BOOL flag = NO; NSString *version = [UIDevice currentDevice].systemVersion; // need two ways to judge this. if (version.doubleValue &gt;= 9.0) &#123; NSDictionary *dict = CFBridgingRelease(CFNetworkCopySystemProxySettings()); NSArray *keys = [dict[@"__SCOPED__"] allKeys]; for (NSString *key in keys) &#123; if ([key rangeOfString:@"tap"].location != NSNotFound || [key rangeOfString:@"tun"].location != NSNotFound || [key rangeOfString:@"ipsec"].location != NSNotFound || [key rangeOfString:@"ppp"].location != NSNotFound)&#123; flag = YES; break; &#125; &#125; &#125; else &#123; struct ifaddrs *interfaces = NULL; struct ifaddrs *temp_addr = NULL; int success = 0; // retrieve the current interfaces - returns 0 on success success = getifaddrs(&amp;interfaces); if (success == 0) &#123; // Loop through linked list of interfaces temp_addr = interfaces; while (temp_addr != NULL) &#123; NSString *string = [NSString stringWithFormat:@"%s" , temp_addr-&gt;ifa_name]; if ([string rangeOfString:@"tap"].location != NSNotFound || [string rangeOfString:@"tun"].location != NSNotFound || [string rangeOfString:@"ipsec"].location != NSNotFound || [string rangeOfString:@"ppp"].location != NSNotFound) &#123; flag = YES; break; &#125; temp_addr = temp_addr-&gt;ifa_next; &#125; &#125; // Free memory freeifaddrs(interfaces); &#125; return flag;&#125; 这个是判断系统的vpn状态，还有一种是调起vpnExtension或着说NEVPNManager的时候的vpn状态可以通过实例化NEVPNManager，然后通过manager.connection.status来获取当前的vpn状态。 该方法有一个缺陷，就是如果用户是连接了已经开启代理的Wi-Fi网络，那我们就无法检测到啦！如果有更好的方法欢迎留言告知～]]></content>
       <tags>
         <tag>iOS</tag>
-        <tag>网络</tag>
         <tag>开发之术</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -16,8 +26,8 @@
     <content type="text"><![CDATA[（敲锣打鼓）ZF渠道的朋友又来搞事情了！ （听好了听好了）现在的需求是这样的！ 通过我们向服务器发起一个A请求，服务器返回一个URL以及所有需要的参数，我们再通过WebView发起Post请求的方式（其中有重定向跳转）拿到最后的HTML信息。 因为UIWebView有内存泄漏和严重的性能问题，本着喜新厌旧的本性，项目中的WebView已经全面转了WKWebView。 WKWebView fail to load post request第一次尝试，自定义了SURLRequest，将方法改为post，将参数转码，甚至还自定义了content-type，然鹅请求却失败。 12345NSMutableURLRequest * requestShare = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:self.urlStr]] [request setHTTPMethod:@"POST"];[requset setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];[request setHTTPBody:[@"id=12&amp;name=Jhon&amp;token=skjasjlfjalsl" dataUsingEncoding:NSUTF8StringEncoding]]; //示例[self.wkwebview loadRequest:request]; 后来谷歌了..发现由于 WKWebView 在独立进程里执行网络请求。一旦注册 http(s) scheme 后，网络请求将从 Network Process 发送到 App Process，这样 NSURLProtocol 才能拦截网络请求。在 webkit2 的设计里使用 MessageQueue 进行进程之间的通信，Network Process 会将请求 encode 成一个 Message,然后通过 IPC 发送给 App Process。出于性能的原因，encode 的时候 HTTPBody 和 HTTPBodyStream 这两个字段被丢弃掉了！官方源码 苹果工程师对此也作出了回复， 回复文章中，苹果工程师还非常热心的告诉开发者，哈哈你的UIWebView能够发送Post请求也只是一个意外，我们根本就没想让你们这样玩！WebView只能通过GET请求建立，要不你们尝试用JavaScript发post请求耍耍呗。 JS大法好OC的不足就让JS来补足吧（怪押韵的？） 我们可以利用JS来动态的生成HTML里的form标签，然后用form表单来实现POST请求。而且WKWebView即使不加载任何html和request，也可以直接执行js方法（吊炸天了）。 我们将JS代码定义成一个即插即用的宏方法。 1234567891011121314151617#define POST_JS @"function my_post(path, params) &#123;\var method = \"POST\";\var form = document.createElement(\"form\");\form.setAttribute(\"method\", method);\form.setAttribute(\"action\", path);\for(var key in params)&#123;\ if (params.hasOwnProperty(key)) &#123;\ var hiddenFild = document.createElement(\"input\");\ hiddenFild.setAttribute(\"type\", \"hidden\");\ hiddenFild.setAttribute(\"name\", key);\ hiddenFild.setAttribute(\"value\", params[key]);\ &#125;\ form.appendChild(hiddenFild);\&#125;\document.body.appendChild(form);\form.submit();\&#125;" 发送请求！ 123456// url - 请求发送的地址// paramStr - 要传递的参数,格式需要转成合法的json字符串,如：@"&#123;\"token\":\"cac6af340960485aa334416c8a34ddbf\"&#125;";// js - 需要wkwebView执行的JS代码，post一份form表单NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",POST_JS,url,dataStr];[self.wkwebview evaluateJavaScript:js completionHandler:nil]; 嗯嗯，这样就太爽了。]]></content>
       <tags>
         <tag>iOS</tag>
-        <tag>开发之术</tag>
         <tag>WKWebView</tag>
+        <tag>开发之术</tag>
       </tags>
   </entry>
   <entry>
