@@ -52,17 +52,17 @@ footer:
   counter: true
   
   # Specify the date when the site was setup. If not defined, current year will be used.
-  since: 1995
+  since: 2017
 
   # Icon between year and copyright info.
   icon:
     # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons/
     # `heart` is recommended with animation in red (#ff0000).
-    name: user
+    name: fas fa-star
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true
     # Change the color of icon, using Hex Code.
-    color: "#808080"
+    color: "#F9D962"
 
   # If not defined, `author` from Hexo main config will be used.
   copyright:
@@ -209,7 +209,7 @@ social:
   #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
-  #Instagram: https://www.instagram.com/neooops || instagram
+  # Instagram: https://www.instagram.com/neooops || instagram
   #Skype: skype:yourname?call|chat || skype
   Telegram: https://t.me/neoops || telegram
 

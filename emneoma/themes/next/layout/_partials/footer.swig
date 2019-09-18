@@ -38,10 +38,9 @@
 </div>
 
 
-<div class="powered-by">
-<span id="busuanzi_container_site_pv""><i class="fa fa-spinner"></i>&nbsp&nbsp站点访问量: <span id="busuanzi_value_site_pv"></span>次 &nbsp|&nbsp 
-<span id="busuanzi_container_site_uv""><i class="fa fa-user-md"></i>&nbsp&nbsp站点访客数: <span id="busuanzi_value_site_uv"></span>人
-</div>
+<span >
+  <i class="fa fa-spinner"></i>&nbsp&nbsp站点访问量: <span id="busuanzi_value_site_pv"></span>次 &nbsp&nbsp|&nbsp&nbsp<i class="fa fa-user-md"></i>&nbsp&nbsp站点访客数: <span id="busuanzi_value_site_uv"></span>人次
+</span>
 
 <!--
 

@@ -127,9 +127,9 @@
   {% include '_third-party/chatra.swig' %}
   {% include '_third-party/tidio.swig' %}
 
-  <!-- 背景网状效果 -->
+  <!-- 背景网状效果 color="128,0,255" zIndex="-1" opacity='0.7' -->
   {% if theme.canvas_nest %}
-    <script type="text/javascript" color="128,0,255" opacity='0.7' zIndex="-1" count="128" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" color="249,217,98" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   {% endif %}
   
   <!-- 鼠标点击效果 -->
