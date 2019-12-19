@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  <meta name="baidu-site-verification" content="SjKI1LWWPT">
+
+
+
+  <meta name="google-site-verification" content="yS3UwvpqmYEP6mDch2qKntKjRRHe__CaTPzAeTg4pPE">
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/water_gun_32.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/water_gun_16.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But.. Cell中Button点击高亮反馈为何有阻滞？ 又是什么阻挡了我tableview的滑动（滑动失效）？">
+<meta name="keywords" content="iOS,开发之术,ScrollView,TableView,手势">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文解决scrollView中恼人的手势冲突">
+<meta property="og:url" content="https://emneoma.xyz/一文解决scrollView中恼人的手势冲突.html">
+<meta property="og:site_name" content="麻瓜的自我修养">
+<meta property="og:description" content="开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But.. Cell中Button点击高亮反馈为何有阻滞？ 又是什么阻挡了我tableview的滑动（滑动失效）？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-19T17:48:28.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一文解决scrollView中恼人的手势冲突">
+<meta name="twitter:description" content="开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But.. Cell中Button点击高亮反馈为何有阻滞？ 又是什么阻挡了我tableview的滑动（滑动失效）？">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://emneoma.xyz/一文解决scrollView中恼人的手势冲突">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一文解决scrollView中恼人的手势冲突 | 麻瓜的自我修养</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <!-- Follow me on Github -->
+    <a href="https://github.com/Lenhulk" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麻瓜的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">伪技术博客(iOS/杂七杂八)</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>HOME</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>ABOUT</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>TAGS</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>CATEGORIES</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>ARCHIVES</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://emneoma.xyz/一文解决scrollView中恼人的手势冲突.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="NEIL">
+      <meta itemprop="description" content="人生没有意义，只有表现形式。">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/22658824?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麻瓜的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一文解决scrollView中恼人的手势冲突
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-19 23:39:34" itemprop="dateCreated datePublished" datetime="2019-12-19T23:39:34+08:00">2019-12-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-20 01:48:28" itemprop="dateModified" datetime="2019-12-20T01:48:28+08:00">2019-12-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But..</p>
+<p>Cell中Button点击高亮反馈为何有阻滞？</p>
+<p>又是什么阻挡了我tableview的滑动（滑动失效）？</p>
+</blockquote>
+
+<a id="more"></a>
+
+<h1 id="ScrollView手势处理原理"><a href="#ScrollView手势处理原理" class="headerlink" title="ScrollView手势处理原理"></a>ScrollView手势处理原理</h1><p>一款优秀的产品势必要有优秀的点击反馈，但是为何你做的列表 <strong>快速点击了cell上的按钮没有高亮，点击时间延长了才有效果！？</strong></p>
+<blockquote>
+<p>UIScrollView原理，以时间为轴线：</p>
+<p>从你的手指touch屏幕开始，scrollView开始一个timer，如果：</p>
+<ol>
+<li><p>150ms内如果你的手指没有任何动作，消息就会传给subView。</p>
+</li>
+<li><p>150ms内手指有明显的滑动（一个swipe动作），scrollView就会滚动，消息不会传给subView。</p>
+</li>
+<li><p>150ms内手指没有滑动，scrollView将消息传给subView，但是之后手指开始滑动，scrollView传送touchesCancelled消息给subView，然后开始滚动。</p>
+</li>
+</ol>
+<p>UIScrollView有一个BOOL类型的<code>tracking</code>属性，用来返回用户是否已经触及内容并打算开始滚动,当手指触摸到UIScrollView内容的一瞬间，会产生下面的动作：</p>
+<p>拦截触摸事件</p>
+<p>tracking属性变为YES</p>
+<p>一个内置的计时器开始生效，用来监控在极短的事件间隔内是否发生了手指移动</p>
+<ul>
+<li><p>当检测到时间间隔内手指发生了移动，UIScrollView自己触发滚动，tracking属性变为NO，手指触摸下即使有(可以响应触摸事件的)内部控件也不会再响应触摸事件。</p>
+</li>
+<li><p>当检测到时间间隔内手指没有移动，tracking属性保持YES，手指触摸下如果有(可以响应触摸事件的)内部控件，则将触摸事件传递给控件进行处理。</p>
+</li>
+</ul>
+</blockquote>
+<p>当你手指放在按钮上，维持150ms，才会触发UIButton的触摸事件！</p>
+<h3 id="delaysContentTouches"><a href="#delaysContentTouches" class="headerlink" title="delaysContentTouches"></a>delaysContentTouches</h3><p>不过上面的工作原理其实有一个属性开关来控制：<code>delaysContentTouches</code>（默认YES）</p>
+<p>只要将scrollview的这个属性设置为false，滚动视图将会第一时间处理响应者链的手势传递！</p>
+<p>（按钮一点即亮～）</p>
+<p>这时就会立刻执行<code>touchesShouldBegin: withEvent: inContentView:</code>方法！</p>
+<p>（这个方法是最先接收到滑动事件的，优先于button的</p>
+<p>UIControlEventTouchDown，以及- (void)touchesCancelled:(NSSet<em>)touches withEvent:(UIEvent</em>)event）</p>
+<p>如果返回YES，touche事件沿着消息响应链传递;</p>
+<p>如果返回NO，表示UIScrollView接收这个滚动事件，不必沿着消息响应链传递了。</p>
+<p><code>touchesShouldCancelled:withEvent:</code></p>
+<p>当我们正在触摸屏幕的时候，如果出现了低电量、有电话呼入等等这样的系统事件时候，低电量或者电话的窗口会置为前台，这个时候touchesCancelled方法就会被调用。这大多数是由iOS系统发出的一些事件，导致触摸事件的中断，一般情况下直接调用touchesEnd即可。</p>
+<p>如果返回YES:(系统默认)是允许UIScrollView，按照消息响应链向子视图传递消息的</p>
+<p>如果返回NO:UIScrollView,就接收不到滑动事件了。</p>
+<h3 id="canCancelContentTouches"><a href="#canCancelContentTouches" class="headerlink" title="canCancelContentTouches"></a>canCancelContentTouches</h3><p>这个BOOL类型的值控制content view里的触摸是否总能引发跟踪(tracking)。（默认YES）</p>
+<p>如果设置为NO，这消息一旦传递给subView，这scroll事件不会再发生。</p>
+<p>如果属性值为YES并且跟踪到手指正触摸到一个内容控件，这时如果用户拖动手指的距离足够产生滚动，那么内容控件将收到一个touchesCancelled:withEvent:消息，而scroll</p>
+<p>view将这次触摸作为滚动来处理。如果值为NO，一旦content</p>
+<p>view开始跟踪(tracking==YES)，则无论手指是否移动，scrollView都不会滚动。</p>
+<h1 id="将按钮点击反馈出来"><a href="#将按钮点击反馈出来" class="headerlink" title="将按钮点击反馈出来"></a>将按钮点击反馈出来</h1><p>为了使我的cell或者子控件上的按钮有点击效果，将delaysContentTouches设置为false，我的按钮重获了第一时间的反馈效果。</p>
+<p><em>当delaysContentTouches设置为false之后，scrollview的滑动变得迟钝了。canCancelContentTouches属性感觉一直都是false的效果，当手指经过了button（有点击高亮效果）再移开，scrollview不会接收滑动事件，UIButton吃掉了我的手势！</em></p>
+<p>❓:不过我没有主动将canCancelContentTouches这个属性改为true，也许会有不一样的效果？</p>
+<h1 id="修复滑动"><a href="#修复滑动" class="headerlink" title="修复滑动"></a>修复滑动</h1><p>当将手指按下时，cell上的按钮会更改颜色，这会提供视觉反馈，以确认您抬起手指时将激活哪个按钮。</p>
+<p>我需要：如果将手指从按钮上拖动，则抬起时触摸这个事件将被取消，并且该按钮的取消高亮显示，将手势变为滑动滚动scrollview。</p>
+<p>这时我们的技巧是，重写上文中提到的，<code>touchesShouldCancel(in:)</code> ，自己决定是否允许滚动视图取消控件中的触摸！</p>
+<p>这里实现了一个scrollView, tableView, collectionView的父控件，他们可以防止UIButton或者某些不应该吃掉手势的控件作出不当的行为（但是最好还是保留UITextInput, UISlider, 以及UISwitch阻挡手势的权利）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">// These let you start a touch on a control that's inside a scroll view,</span></span><br><span class="line"><span class="comment">// and then if you start dragging, it cancels the touch on the button</span></span><br><span class="line"><span class="comment">// and lets you scroll instead. Without these scroll view subclasses,</span></span><br><span class="line"><span class="comment">// controls in scroll views will eat touches that start in them, which</span></span><br><span class="line"><span class="comment">// prevents scrolling and makes the app feel broken.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The UITextInput exception is for cases where you have a text field</span></span><br><span class="line"><span class="comment">// or a text view in a scroll view. If you press and hold there, you want</span></span><br><span class="line"><span class="comment">// to get the text editing magnifier cursor, instead of canceling the</span></span><br><span class="line"><span class="comment">// touch in the text input element.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Ditto for UISlider and UISwitch: if the table view eats the drag gesture,</span></span><br><span class="line"><span class="comment">// they feel broken. Feel free to add your own exceptions if you have custom</span></span><br><span class="line"><span class="comment">// controls that require swiping or dragging to function.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ControlContainableScrollView</span>: <span class="title">UIScrollView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesShouldCancel</span><span class="params">(<span class="keyword">in</span> view: UIView)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> view <span class="keyword">is</span> <span class="type">UIControl</span></span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UITextInput</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISlider</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISwitch</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.touchesShouldCancel(<span class="keyword">in</span>: view)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ControlContainableTableView</span>: <span class="title">UITableView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesShouldCancel</span><span class="params">(<span class="keyword">in</span> view: UIView)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> view <span class="keyword">is</span> <span class="type">UIControl</span></span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UITextInput</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISlider</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISwitch</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.touchesShouldCancel(<span class="keyword">in</span>: view)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ControlContainableCollectionView</span>: <span class="title">UICollectionView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesShouldCancel</span><span class="params">(<span class="keyword">in</span> view: UIView)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> view <span class="keyword">is</span> <span class="type">UIControl</span></span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UITextInput</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISlider</span>)</span><br><span class="line">            &amp;&amp; !(view <span class="keyword">is</span> <span class="type">UISwitch</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.touchesShouldCancel(<span class="keyword">in</span>: view)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要使用了这个两个技巧，你能保留scrollview上交互控件的良好点击反馈，又能像原生tableview一样自然的滑动取消点击cell的高亮并且变成滚动scrollview，带来更自然更好的用户体验哇！</p>
+<h1 id="UIGestureRecognizerDelegate"><a href="#UIGestureRecognizerDelegate" class="headerlink" title="UIGestureRecognizerDelegate"></a>UIGestureRecognizerDelegate</h1><p>当你需要在scrollView上加上滑动手势的时候，那么更加会遇到滑动手势冲突的情况。</p>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ol>
+<li>上滑的时候，先不让子scrollView滑动（更改contentOffsetY为0），而是隐藏头部内容控件，再让子scrollView开始滑动</li>
+<li>下滑的时候，等子scrollView滑到最上方之后（contentOffsetY为0），再允许父ScrollView滑动，显示头部控件</li>
+</ol>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
+<li>创建UIScrollView的子类，实现代理UIGestureRecognizerDelegate的<code>gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)</code>方法；返回true，让滑动事件可以向父View传递：</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myScrollView</span>: <span class="title">UIScrollView</span>, <span class="title">UIGestureRecognizerDelegate</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">gestureRecognizer</span><span class="params">(<span class="number">_</span> gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>实现代理方法：（例子）</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CollisionViewController</span>: <span class="title">UIScrollViewDelegate</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">scrollViewWillBeginDragging</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView)</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> scrollView == <span class="keyword">self</span>.scrollView &#123;</span><br><span class="line">			lastOffsetY = <span class="keyword">self</span>.scrollView.contentOffset.y</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidScroll</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView)</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> scrollView == <span class="keyword">self</span>.scrollView &#123;</span><br><span class="line">			<span class="keyword">let</span> y = (<span class="keyword">self</span>.view.superview?.superview?.superview?.y)! - <span class="type">PageViewControllerPlus</span>.topNaviBarHeight</span><br><span class="line">			<span class="keyword">if</span> <span class="keyword">self</span>.scrollView.contentOffset.y &gt; lastOffsetY &#123;</span><br><span class="line">				<span class="comment">// 下滑</span></span><br><span class="line">				<span class="keyword">if</span> superContainerScrollView!.contentOffset.y &lt;= y &#123;</span><br><span class="line">					<span class="keyword">self</span>.scrollView.contentOffset.y = <span class="number">0</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="keyword">self</span>.scrollView.contentOffset.y &lt; lastOffsetY &#123;</span><br><span class="line">				<span class="comment">//上滑</span></span><br><span class="line">				<span class="keyword">if</span> <span class="keyword">self</span>.scrollView.contentOffset.y &gt; <span class="number">0</span> &#123;</span><br><span class="line">					superContainerScrollView?.contentOffset.y = y + <span class="type">PageViewControllerPlus</span>.topNaviBarHeight</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+          
+            <a href="/tags/开发之术/" rel="tag"><i class="fa fa-tag"></i> 开发之术</a>
+          
+            <a href="/tags/ScrollView/" rel="tag"><i class="fa fa-tag"></i> ScrollView</a>
+          
+            <a href="/tags/TableView/" rel="tag"><i class="fa fa-tag"></i> TableView</a>
+          
+            <a href="/tags/手势/" rel="tag"><i class="fa fa-tag"></i> 手势</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/不止配置ssh实现Sourcetree密钥访问远程仓库.html" rel="next" title="不止配置ssh实现Sourcetree密钥访问远程仓库">
+                <i class="fa fa-chevron-left"></i> 不止配置ssh实现Sourcetree密钥访问远程仓库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ1My8yMDk4NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/22658824?s=460&v=4" alt="NEIL">
+            
+              <p class="site-author-name" itemprop="name">NEIL</p>
+              <div class="site-description motion-element" itemprop="description">人生没有意义，只有表现形式。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Lenhulk" title="GitHub &rarr; https://github.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:Neooooops@gmail.com" title="E-Mail &rarr; mailto:Neooooops@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/Lenhulk" title="FB Page &rarr; https://www.facebook.com/Lenhulk" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://t.me/neoops" title="Telegram &rarr; https://t.me/neoops" rel="noopener" target="_blank"><i class="fa fa-fw fa-telegram"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ScrollView手势处理原理"><span class="nav-number">1.</span> <span class="nav-text">ScrollView手势处理原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#delaysContentTouches"><span class="nav-number">1.0.1.</span> <span class="nav-text">delaysContentTouches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canCancelContentTouches"><span class="nav-number">1.0.2.</span> <span class="nav-text">canCancelContentTouches</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#将按钮点击反馈出来"><span class="nav-number">2.</span> <span class="nav-text">将按钮点击反馈出来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修复滑动"><span class="nav-number">3.</span> <span class="nav-text">修复滑动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UIGestureRecognizerDelegate"><span class="nav-number">4.</span> <span class="nav-text">UIGestureRecognizerDelegate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求"><span class="nav-number">4.0.1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">4.0.2.</span> <span class="nav-text">实现</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-fas fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NEIL</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">25k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">28 分钟</span>
+  
+</div>
+
+
+<span>
+  <i class="fa fa-spinner"></i>&nbsp&nbsp站点访问量: <span id="busuanzi_value_site_pv"></span>次 &nbsp&nbsp|&nbsp&nbsp<i class="fa fa-user-md"></i>&nbsp&nbsp站点访客数: <span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<!--
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="123,104,238" opacity="0.7" zindex="-1" count="123" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '一文解决scrollView中恼人的手势冲突.html'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 背景网状效果 color="128,0,255" zIndex="-1" opacity='0.7' -->
+  
+    <script type="text/javascript" color="249,217,98" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+  <!-- 鼠标点击效果 -->
+  <script type="text/javascript" src="/js/click-word.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":55},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.9},"log":false});</script></body>
+</html>
