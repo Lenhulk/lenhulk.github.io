@@ -125,7 +125,7 @@
 <meta property="og:site_name" content="麻瓜的自我修养">
 <meta property="og:description" content="开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But.. Cell中Button点击高亮反馈为何有阻滞？ 又是什么阻挡了我tableview的滑动（滑动失效）？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-19T17:48:28.592Z">
+<meta property="og:updated_time" content="2019-12-19T17:52:54.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文解决scrollView中恼人的手势冲突">
 <meta name="twitter:description" content="开发一个界面较为复杂的app，我们势必会出现在scrollview或者tableview上加上按钮或者手势，But.. Cell中Button点击高亮反馈为何有阻滞？ 又是什么阻挡了我tableview的滑动（滑动失效）？">
@@ -432,7 +432,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-20 01:48:28" itemprop="dateModified" datetime="2019-12-20T01:48:28+08:00">2019-12-20</time>
+                <time title="修改时间：2019-12-20 01:52:54" itemprop="dateModified" datetime="2019-12-20T01:52:54+08:00">2019-12-20</time>
               
             
           </span>
@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6k</span>
+                <span title="本文字数">6.1k</span>
               
 
               
@@ -561,9 +561,12 @@
 
 <p>只要使用了这个两个技巧，你能保留scrollview上交互控件的良好点击反馈，又能像原生tableview一样自然的滑动取消点击cell的高亮并且变成滚动scrollview，带来更自然更好的用户体验哇！</p>
 <h1 id="UIGestureRecognizerDelegate"><a href="#UIGestureRecognizerDelegate" class="headerlink" title="UIGestureRecognizerDelegate"></a>UIGestureRecognizerDelegate</h1><p>当你需要在scrollView上加上滑动手势的时候，那么更加会遇到滑动手势冲突的情况。</p>
+<p> <code>gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)</code>这个方法可以让手势继续向下一个响应者传递，手势加在ScrollView或者tableView上也不会有冲突，不需要通过offset差值去计算滑动方向，效果相当完美</p>
 <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ol>
-<li>上滑的时候，先不让子scrollView滑动（更改contentOffsetY为0），而是隐藏头部内容控件，再让子scrollView开始滑动</li>
-<li>下滑的时候，等子scrollView滑到最上方之后（contentOffsetY为0），再允许父ScrollView滑动，显示头部控件</li>
+<li><p>上滑的时候，先不让子scrollView滑动（更改contentOffsetY为0），而是隐藏头部内容控件，再让子scrollView开始滑动</p>
+</li>
+<li><p>下滑的时候，等子scrollView滑到最上方之后（contentOffsetY为0），再允许父ScrollView滑动，显示头部控件</p>
+</li>
 </ol>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
 <li>创建UIScrollView的子类，实现代理UIGestureRecognizerDelegate的<code>gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)</code>方法；返回true，让滑动事件可以向父View传递：</li>
