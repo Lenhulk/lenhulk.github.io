@@ -5,23 +5,19 @@ tags: [iOS,网络,开发之术]
 Categories: iOS
 ---
 
-
-
 {% cq %}
 
-2020年我要学习网络安全咯！
+我们需要检测用户的网络IP地址是否开启了代理（VPN），防止一些用户通过关闭GPS，让我们的IP定位错误，非法获取我们限制了地域的优惠，或者是传递虚假网络信息。
 
 {% endcq %}
 
+
+
 <!-- more -->
-
-有时候在开发中会遇到这样的需求：
-
-**我们需要检测用户的网络IP地址是否开启了代理（VPN），防止一些用户通过关闭GPS，让我们的IP定位错误，非法获取我们限制了地域的优惠，或者是传递虚假网络信息。**
 
 
 {% note primary %}
-我们可以通过判断“**tap** **tun** **ipsec** **ppp**” 这些字段是否在“**CFNetworkCopySystemProxySettings**”里，来判断**vpn**是否开启。
+可以通过判断“**tap** **tun** **ipsec** **ppp**” 这些字段是否在“**CFNetworkCopySystemProxySettings**”里，来判断**vpn**是否开启。
 {% endnote %}
 
 完整方法在此：

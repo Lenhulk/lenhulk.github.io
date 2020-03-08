@@ -5,12 +5,6 @@ tags: [iOS,ARC,内存管理,基础知识]
 categories: iOS
 ---
 
-{% cq %}
-iOS的内存管理策略是什么？ ARC又是为了什么而诞生的？
-
-**来自面试官的拷问**
-{% endcq %}
-
 ![ZB8apF.jpg](https://s2.ax1x.com/2019/07/07/ZB8apF.jpg)
 
 <!-- more -->

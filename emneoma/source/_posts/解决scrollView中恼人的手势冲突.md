@@ -1,5 +1,5 @@
 ---
-title: 一文解决scrollView中恼人的手势冲突
+title: 解决scrollView中恼人的手势冲突
 date: 2019-12-19 23:39:34
 tags: [iOS,开发之术,ScrollView,TableView,手势]
 Categories: iOS
