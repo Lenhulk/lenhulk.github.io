@@ -155,18 +155,20 @@
 
 
 
-  <meta name="description" content="听终端的话，别留下warning。  1234567891011$ git add .$ git commit -m &quot;fuckit&quot;On branch masterChanges not staged for commit:  (use &quot;git add &amp;lt;file&amp;gt;...&quot; to update what will be committed)  (use &quot;git checkout">
-<meta name="keywords" content="git,debug">
+  <meta name="description" content="New build system 把我坑惨了啊 TAT">
+<meta name="keywords" content="iOS,CocoaPods,NewBuildSystem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“git add .” not worked - “诡异”问题解决">
-<meta property="og:url" content="https://emneoma.xyz/“git-add-”-not-worked-“诡异”问题解决.html">
+<meta property="og:title" content="CocoaPods和恼人的New build system">
+<meta property="og:url" content="https://emneoma.xyz/CocoaPods和恼人的New-build-system.html">
 <meta property="og:site_name" content="麻瓜的自我修养">
-<meta property="og:description" content="听终端的话，别留下warning。  1234567891011$ git add .$ git commit -m &quot;fuckit&quot;On branch masterChanges not staged for commit:  (use &quot;git add &amp;lt;file&amp;gt;...&quot; to update what will be committed)  (use &quot;git checkout">
+<meta property="og:description" content="New build system 把我坑惨了啊 TAT">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-08T17:15:11.014Z">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/09/8SknEt.md.png">
+<meta property="og:updated_time" content="2020-03-08T18:27:01.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“git add .” not worked - “诡异”问题解决">
-<meta name="twitter:description" content="听终端的话，别留下warning。  1234567891011$ git add .$ git commit -m &quot;fuckit&quot;On branch masterChanges not staged for commit:  (use &quot;git add &amp;lt;file&amp;gt;...&quot; to update what will be committed)  (use &quot;git checkout">
+<meta name="twitter:title" content="CocoaPods和恼人的New build system">
+<meta name="twitter:description" content="New build system 把我坑惨了啊 TAT">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/09/8SknEt.md.png">
 
 
 
@@ -174,7 +176,7 @@
 
   
   
-  <link rel="canonical" href="https://emneoma.xyz/“git-add-”-not-worked-“诡异”问题解决">
+  <link rel="canonical" href="https://emneoma.xyz/CocoaPods和恼人的New-build-system">
 
 
 
@@ -184,7 +186,7 @@
   };
 </script>
 
-  <title>“git add .” not worked - “诡异”问题解决 | 麻瓜的自我修养</title>
+  <title>CocoaPods和恼人的New build system | 麻瓜的自我修养</title>
   
 
 
@@ -410,7 +412,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://emneoma.xyz/“git-add-”-not-worked-“诡异”问题解决.html">
+    <link itemprop="mainEntityOfPage" href="https://emneoma.xyz/CocoaPods和恼人的New-build-system.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="EDWIIN">
@@ -427,7 +429,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">“git add .” not worked - “诡异”问题解决
+          <h2 class="post-title" itemprop="name headline">CocoaPods和恼人的New build system
 
               
             
@@ -453,46 +455,16 @@
                 
               
 
-              <time title="创建时间：2019/05/26 03:25:19" itemprop="dateCreated datePublished" datetime="2019-05-26T03:25:19+08:00">2019/05/26</time>
+              <time title="创建时间：2020/03/09 01:36:52 / 修改时间：02:27:01" itemprop="dateCreated datePublished" datetime="2020-03-09T01:36:52+08:00">2020/03/09</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020/03/09 01:15:11" itemprop="dateModified" datetime="2020-03-09T01:15:11+08:00">2020/03/09</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -524,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.7k</span>
+                <span title="本文字数">1k</span>
               
 
               
@@ -538,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </div>
           
@@ -558,26 +530,33 @@
       
 
       
-        <div class="note warning"><p>听终端的话，别留下warning。</p></div>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">"fuckit"</span></span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">  (commit or discard the untracked or modified content <span class="keyword">in</span> submodules)</span><br><span class="line"></span><br><span class="line">	modified:   xxx/themes/next (modified content, untracked content)</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+        <div class="note danger"><p>New build system 把我坑惨了啊 TAT</p></div>
 
 <a id="more"></a>
-<hr>
-<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>自从把博客源码托管到github仓库之后，腰也不酸了，腿也不痛了，一口气上五楼..咳咳</p>
-<p>之后我给hexo换了一个NEXT主题，爽炸了！可是今天修改了主题某个js文件，<br>“<strong>git status</strong>”之后却显示<em>“nothing to commit”</em> ???</p>
-<p>上github上看源码仓库，却发现主题文件夹下空空如也..仓库却显示没问题，<strong>git log</strong>，一直停留在上个提交版本。</p>
-<p>于是一直死循环操作“<strong>git add .</strong>”&amp;&amp;“<strong>git commit -m “xxx”</strong>”，<br>终端却一直无情回复我“Changes not staged for commit”，如上面那段代码所示。</p>
-<p>尝试按照终端提示的办法无法解决。</p>
-<p>这就很诡异了？于是我花了一个晚上疯狂踩坑..</p>
-<h2 id="爬坑"><a href="#爬坑" class="headerlink" title="爬坑"></a>爬坑</h2><p>搜索了各个关键词句，看了stackoverflow和几篇无用博文还是没有找到合适的解决。<br>直觉是文件引入的问题，一口气把next文件 “<strong>git rm –f xxx/themes/next</strong>” 再add进去，仔细一看却发现有如下提示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">warning: adding embedded git repository: xxx/themes/next</span><br><span class="line">hint: You<span class="string">'ve added another git repository inside your current repository.</span></span><br><span class="line"><span class="string">hint: Clones of the outer repository will not contain the contents of</span></span><br><span class="line"><span class="string">hint: the embedded repository and will not know how to obtain it.</span></span><br><span class="line"><span class="string">hint: If you meant to add a submodule, use:</span></span><br><span class="line"><span class="string">hint:</span></span><br><span class="line"><span class="string">hint: 	git submodule add &lt;url&gt; xxx/themes/next</span></span><br><span class="line"><span class="string">hint:</span></span><br><span class="line"><span class="string">hint: If you added this path by mistake, you can remove it from the</span></span><br><span class="line"><span class="string">hint: index with:</span></span><br><span class="line"><span class="string">hint:</span></span><br><span class="line"><span class="string">hint: 	git rm --cached xxx/themes/next</span></span><br><span class="line"><span class="string">hint:</span></span><br><span class="line"><span class="string">hint: See "git help submodule" for more information.</span></span><br></pre></td></tr></table></figure>
 
-<p>还好我认识一点英文，想起当时是从git仓库直接克隆next的，却因为粗心没有看warning，径直commit了（居然也没事- -!），才会引发以上的惨剧。<br>于是乎赶紧把主题下的git仓库删除了。</p>
-<p>偷了个懒，把next文件夹移走，commit，再移进来，add之后总算能看到一排排的主题相关文件辣～</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>git仓库下要提交A文件夹，A/B文件夹下也包含一个git仓库（.git）。使用<strong>git add .</strong> 就只能加入一个空的B文件夹。</p>
-<hr>
-<h4 id="这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。"><a href="#这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。" class="headerlink" title="这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。"></a>这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。</h4>
+<h1 id="CocoaPods对New-build-system水土不服"><a href="#CocoaPods对New-build-system水土不服" class="headerlink" title="CocoaPods对New build system水土不服"></a>CocoaPods对New build system水土不服</h1><p>如果您使用CocoaPods与新的Xcode构建系统(New build system)一起为您的应用程序开发库，会有一个对新手极不友好的<strong>BUG</strong> —— 即Xcode在构建pods库时不会获取上次<em>pod install</em>之后修改的最新代码。</p>
+<p>参见<a href="https://openradar.appspot.com/41126633" target="_blank" rel="noopener">radar 41126633</a>。</p>
+<p>也就是说，开发过程中每次修改了库代码，你就要重新clean -&gt; build -&gt; run，否则跑的还是旧代码！</p>
+<p>“如果你是第一次接触库开发，第一次接触组件化开发，而且你的Xcode刚好升级到了10以上有了新的编译系统，那么你总是会莫名其妙踩进这个怪坑！其次，每次clean之后重新编译，对于比较大的项目就要消耗一堆时间，而且每次等待也是打断了开发的思路，这是非常严重的问题啊！”</p>
+<p>最简单的方式就是改回旧的build system：</p>
+<p><strong>File » Workspace Settings » Use Legacy Build</strong>.</p>
+<blockquote>
+<p>Tips: 记得在每次<em>pod install</em>之后，都得去改，因为xcworkspace默认也会使用新编译系统！</p>
+</blockquote>
+<h1 id="为什么水土不服？"><a href="#为什么水土不服？" class="headerlink" title="为什么水土不服？"></a>为什么水土不服？</h1><p>长话短说：看一下项目的<strong>Build Phases</strong>。 有个<strong>Embed Pods Frameworks</strong>，可将构建的框架复制到项目中。 此功能使用一种称为<em>Input/Output files</em>的功能，该功能仅在受影响的文件已更改时才运行脚本。</p>
+<p><a href="https://imgchr.com/i/8SknEt" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/03/09/8SknEt.md.png" alt="8SknEt.md.png"></a></p>
+<p>这似乎在新的构建系统中被打破了，看看 <a href="https://openradar.appspot.com/41126633" target="_blank" rel="noopener">Xcode bug</a> 所说的。</p>
+<h1 id="更好的解决办法"><a href="#更好的解决办法" class="headerlink" title="更好的解决办法"></a>更好的解决办法</h1><ol>
+<li><p>升级你的CocoaPods版本至&gt;=1.6；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem update cocoapods</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，您可以将<em>installation option</em>（安装选项）添加到<strong>Podfile</strong>中，以禁用<em>Input/Output files</em>的使用：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use_frameworks!</span><br><span class="line"></span><br><span class="line">install! <span class="string">'cocoapods'</span>, <span class="symbol">:disable_input_output_paths</span> =&gt; <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">target <span class="string">'HelloPod_Example'</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在，当您再次运行pod install时，构建阶段将不再使用输入/输出文件，Cocoapods脚本将始终运行，以保证您的库代码始终是最新的。</p>
+</li>
+</ol>
+
       
     </div>
 
@@ -600,9 +579,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+            <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
           
-            <a href="/tags/debug/" rel="tag"><i class="fa fa-tag"></i> debug</a>
+            <a href="/tags/CocoaPods/" rel="tag"><i class="fa fa-tag"></i> CocoaPods</a>
+          
+            <a href="/tags/NewBuildSystem/" rel="tag"><i class="fa fa-tag"></i> NewBuildSystem</a>
           
         </div>
       
@@ -615,15 +596,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/解决scrollView中恼人的手势冲突.html" rel="next" title="解决scrollView中恼人的手势冲突">
+                <i class="fa fa-chevron-left"></i> 解决scrollView中恼人的手势冲突
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/iOS内存管理原理浅谈.html" rel="prev" title="iOS内存管理原理浅谈">
-                iOS内存管理原理浅谈 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -861,7 +842,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬坑"><span class="nav-number">2.</span> <span class="nav-text">爬坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。"><span class="nav-number">3.0.1.</span> <span class="nav-text">这个故事告诉我们以LINUX“没有回应就是最好的回应”的尿性来说，还是好好看终端回复吧。</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CocoaPods对New-build-system水土不服"><span class="nav-number">1.</span> <span class="nav-text">CocoaPods对New build system水土不服</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么水土不服？"><span class="nav-number">2.</span> <span class="nav-text">为什么水土不服？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更好的解决办法"><span class="nav-number">3.</span> <span class="nav-text">更好的解决办法</span></a></li></ol></div>
             
 
           </div>
@@ -1073,7 +1054,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '“git-add-”-not-worked-“诡异”问题解决.html'
+    refer: 'CocoaPods和恼人的New-build-system.html'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];

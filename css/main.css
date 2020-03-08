@@ -153,8 +153,8 @@ template {
 }
 body {
   position: relative;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 14px;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
   line-height: 2;
   color: #555;
   background: #eee;
@@ -166,7 +166,7 @@ body {
 }
 @media (min-width: 1200px) {
   body {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 h1,
@@ -179,7 +179,7 @@ h6 {
   padding: 0;
   font-weight: bold;
   line-height: 1.5;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Roboto Slab', 'Lato', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 }
 h1 {
   font-size: 22px;
@@ -504,7 +504,7 @@ pre,
 }
 pre,
 code {
-  font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
+  font-family: Menlo, Monaco, Consolas, 'Roboto Slab', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", monospace;
 }
 code {
   overflow-wrap: break-word;
@@ -785,7 +785,7 @@ pre .javascript .function {
 .post-body .note h4,
 .post-body .note h5,
 .post-body .note h6 {
-  margin-top: 3px;
+  margin-top: 0;
   margin-bottom: 0;
   border-bottom: initial;
   padding-top: 0 !important;
@@ -806,16 +806,6 @@ pre .javascript .function {
 .post-body .note blockquote:last-child {
   margin-bottom: 0;
 }
-.post-body .note:not(.no-icon) {
-  padding-left: 45px;
-}
-.post-body .note:not(.no-icon):before {
-  position: absolute;
-  font-family: 'FontAwesome';
-  font-size: larger;
-  top: 13px;
-  left: 15px;
-}
 .post-body .note.default {
   background-color: #f7f7f7;
   border-left-color: #777;
@@ -825,10 +815,6 @@ pre .javascript .function {
 .post-body .note.default h4,
 .post-body .note.default h5,
 .post-body .note.default h6 {
-  color: #777;
-}
-.post-body .note.default:not(.no-icon):before {
-  content: "\f0a9";
   color: #777;
 }
 .post-body .note.primary {
@@ -842,10 +828,6 @@ pre .javascript .function {
 .post-body .note.primary h6 {
   color: #6f42c1;
 }
-.post-body .note.primary:not(.no-icon):before {
-  content: "\f055";
-  color: #6f42c1;
-}
 .post-body .note.info {
   background-color: #eef7fa;
   border-left-color: #428bca;
@@ -855,10 +837,6 @@ pre .javascript .function {
 .post-body .note.info h4,
 .post-body .note.info h5,
 .post-body .note.info h6 {
-  color: #428bca;
-}
-.post-body .note.info:not(.no-icon):before {
-  content: "\f05a";
   color: #428bca;
 }
 .post-body .note.success {
@@ -872,10 +850,6 @@ pre .javascript .function {
 .post-body .note.success h6 {
   color: #5cb85c;
 }
-.post-body .note.success:not(.no-icon):before {
-  content: "\f058";
-  color: #5cb85c;
-}
 .post-body .note.warning {
   background-color: #fdf8ea;
   border-left-color: #f0ad4e;
@@ -887,10 +861,6 @@ pre .javascript .function {
 .post-body .note.warning h6 {
   color: #f0ad4e;
 }
-.post-body .note.warning:not(.no-icon):before {
-  content: "\f06a";
-  color: #f0ad4e;
-}
 .post-body .note.danger {
   background-color: #fcf1f2;
   border-left-color: #d9534f;
@@ -900,10 +870,6 @@ pre .javascript .function {
 .post-body .note.danger h4,
 .post-body .note.danger h5,
 .post-body .note.danger h6 {
-  color: #d9534f;
-}
-.post-body .note.danger:not(.no-icon):before {
-  content: "\f056";
   color: #d9534f;
 }
 .post-body .tabs {
@@ -1167,7 +1133,7 @@ pre .javascript .function {
   line-height: 36px;
   font-size: 20px;
   font-weight: normal;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1260,7 +1226,7 @@ pre .javascript .function {
 .post-body {
   overflow-wrap: break-word;
   word-wrap: break-word;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 }
 .post-body span.exturl .fa {
   font-size: 14px;
@@ -1276,7 +1242,7 @@ pre .javascript .function {
 .post-body .figure .caption {
   margin: -20px auto 15px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   color: #999;
   font-weight: bold;
   line-height: 1;
@@ -1525,7 +1491,7 @@ pre .javascript .function {
 .posts-expand .post-meta {
   margin: 3px 0 60px 0;
   color: #999;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "STHeiti", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
   font-size: 12px;
   text-align: center;
 }
@@ -1845,7 +1811,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffff01;
+  background: #9ddf2e;
 }
 .feed-link,
 .chat {
@@ -2416,7 +2382,7 @@ ul.breadcrumb {
   margin: 1em 0;
   padding: 0 2em;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
 }
 ul.breadcrumb li {
   display: inline;
@@ -3038,20 +3004,13 @@ ul.breadcrumb li+li:last-child {
     margin: 8px 0 0;
   }
 }
-.post {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
-  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
-}
 .main-inner {
   background: #fff;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 .header-inner {
   background: #fff;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 span#inline-toc {
   display: inline-block;
