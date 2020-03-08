@@ -7,7 +7,7 @@ title: 麻瓜的自我修养
 subtitle: 伪技术博客(iOS/杂七杂八)
 description: 人生没有意义，只有表现形式。
 keywords: iOS, Objective-C, Swift
-author: NEIL
+author: EDWIIN
 language: zh-CN
 timezone:
 
@@ -63,7 +63,7 @@ tag_map:
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
+date_format: YYYY/MM/DD
 time_format: HH:mm:ss
 
 # Pagination
@@ -75,6 +75,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
+#theme: quark
 
 # Background-Effect settings
 # add canvas-nest effect

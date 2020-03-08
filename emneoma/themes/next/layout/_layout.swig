@@ -129,7 +129,7 @@
 
   <!-- 背景网状效果 color="128,0,255" zIndex="-1" opacity='0.7' -->
   {% if theme.canvas_nest %}
-    <script type="text/javascript" color="249,217,98" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    <script type="text/javascript" color="249,217,98" count="69" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   {% endif %}
   
   <!-- 鼠标点击效果 -->
