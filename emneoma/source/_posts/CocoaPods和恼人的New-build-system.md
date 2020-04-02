@@ -4,7 +4,7 @@ date: 2020-03-09 01:36:52
 tags: [iOS,CocoaPods,NewBuildSystem]
 ---
 
-<div class="note danger"><p>New build system 把我坑惨了啊 TAT</p></div>
+<div class="note primary"><p>New build system 把我坑惨了啊 TAT</p></div>
 
 <!-- more -->
 
