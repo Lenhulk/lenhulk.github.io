@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[“URL Scheme” in iOS 浅析]]></title>
+    <url>%2F%E2%80%9CURL-Scheme%E2%80%9D-in-iOS-%E6%B5%85%E6%9E%90.html</url>
+    <content type="text"><![CDATA[做一个反复横跳的魔法师🧙‍♀️ 什么是URL Scheme在苹果的生态中，存在沙盒机制来保障用户的隐私和app间的信息安全。但是应用之间不可能毫无数据交流和业务跳转，因此URL Scheme就是打破这层隔膜的工具。通过URL Scheme，app可以跳转或者唤起另一个app，拉起分享，支付等业务功能，当然你也可以给自己的app定制一个专属URL Scheme让别的app和你进行互动。 URL Scheme 浅析URL：统一资源定位符；URL地址格式排列为：scheme://host:port/path 。 类似的，一个 URL Schemes 分为 Scheme、Action、Parameter、Value 这 4 个部分，中间用冒号 :、斜线 /、问号 ?、等号 = 相连接。 Scheme这个东西在 URL 里本来用来表示协议，比如 http、https、ftp 等。但是，在 iOS 的这些 URL 里它们就不是协议了，而是启动一个应用的 URL。 链接头和斜线之后，跟的是动作（Action）。动作在一些文档里也被称为「Command（命令）」。 在动作之后可以接参数（Parameter）也可以不接，「参数以问号 ? 为起始」，所以不接参数就不用带这个问号。 （这一套机制也因为灵活高效方便而受众于各iOS组件化开发解决方案） 通用的规则： 冒号:：在链接头和命令之间； 双斜杠 //：在链接头和命令之间，有时会是三斜杠 ///； 问号 ?：在命令和参数之间； 等号 =：在参数和值之间； 「和」符号 &amp;：在一组参数和另一组参数之间。 Tips： 我们可以直接用safari 访问：URL Scheme://，就可以唤醒对应的 APP，可以用此来测试是否给自己的app配制正确。 URL Scheme 跳转使用以跳转支付宝进行支付为例： 在infor.plist文件中添加 LSApplicationQueriesSchemes 数组，直接点击“+”号，在value一栏填上支付宝的Scheme——“alipay”； LSApplicationQueriesSchemes：是在iOS 9 以后苹果新增的一个参数，这个类别增加之后，可以使用UIApplication的canOpenURL:方法来判断是否安装了这个 URL scheme 对应的 APP。否则会报错提示：-canOpenURL: failed for URL: &quot;xxx://&quot; - error: &quot;This app is not allowed to query for scheme xxx&quot;；如果直接调用跳转代码跳转到不存在的app 也会崩溃。 *UIApplication - canOpenURL: *判断我们的目标app是否有安装在本机 *UIApplication - openURL: *来拉起对应的app iOS 10中，该方法被openURL:options:completionHandler:方法替代。 定义自己URL Scheme 让其它app跳转URL Scheme必须能唯一标识一个APP，如果你设置的URL Scheme与别的APP的URL Scheme冲突时，你的APP不一定会被启动起来。因为当你的APP在安装的时候，系统里面已经注册了你的URL Scheme。 一般情况下，是会调用先安装的app。但是iOS的系统app的URL Scheme肯定是最高的。所以我们定义URL Scheme的时候，尽量避开系统app已经定义过的URL Scheme。 操作步骤： 在info.plist文件中添加 CFBundleURLTypes 数组，给每一个item的CFBundleURLSchemes填值，同时可以给他们一个标示在CFBundleURLName里。 如果直接操作info.plist文件不明白，可以按这样的步骤添加： 点击工程名-&gt;target-&gt;Info-&gt;URL Types-&gt;点击“+”号*， 然后按需填写URL Scheme等参数，再回头看info文件就有值了。 当你完成了这些，其它app就可以根据你的scheme拉起你的app。 拉起app后的操作在AppDelegate中实现系统方法 application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey,id&gt; *)options 就可以解析传递过来的URL Scheme ，定制你要拉起的页面 发送的请求 传递的请求参数 及回调。 iOS10以上系统常用URL Scheme设置页面 App-Prefs:root (之前在那个设置页面，就跳转到相应的设置页面) 无线局域网 App-Prefs:root=WIFI 蓝牙 App-Prefs:root=Bluetooth 蜂窝移动网络 App-Prefs:root=MOBILE_DATA_SETTINGS_ID 个人热点 App-Prefs:root=INTERNET_TETHERING 运营商 App-Prefs:root=Carrier 通知 App-Prefs:root=NOTIFICATIONS_ID 通用 App-Prefs:root=General 通用-关于本机 App-Prefs:root=General&amp;path=About 通用-键盘 App-Prefs:root=General&amp;path=Keyboard 通用-辅助功能 App-Prefs:root=General&amp;path=ACCESSIBILITY 通用-语言与地区 App-Prefs:root=General&amp;path=INTERNATIONAL 通用-还原 App-Prefs:root=Reset 墙纸 App-Prefs:root=Wallpaper Siri App-Prefs:root=SIRI 隐私 App-Prefs:root=Privacy Safari App-Prefs:root=SAFARI 音乐 App-Prefs:root=MUSIC 音乐-均衡器 App-Prefs:root=MUSIC&amp;path=com.apple.Music:EQ 照片与相机 App-Prefs:root=Photos FaceTime App-Prefs:root=FACETIME]]></content>
+      <tags>
+        <tag>iOS</tag>
+        <tag>URL Scheme</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[iOS-镂空效果遮罩]]></title>
     <url>%2FiOS-%E9%95%82%E7%A9%BA%E6%95%88%E6%9E%9C%E9%81%AE%E7%BD%A9.html</url>
     <content type="text"><![CDATA[做新手指引/扫描二维码等的需要的镂空效果。 效果图(额，毛玻璃是我后期加的为了保护隐私实际是没有这一层的) 核心代码12345678910111213141516171819202122232425262728293031323334override func draw(_ rect: CGRect) &#123; super.draw(rect) clearBgView.layer.sublayers?.removeAll() // 全路径 let bgPath = UIBezierPath(rect: self.bounds) // 镂空路径 let hollowPath = UIBezierPath(roundedRect: hollowRects[idx], cornerRadius: 4) bgPath.append(hollowPath) /* // 虚线部分（需求，可以不写） let line = CAShapeLayer() line.fillColor = UIColor.clear.cgColor line.strokeColor = UIColor.white.cgColor line.lineWidth = 1 line.lineDashPattern = [3, 3] line.path = hollowPath.cgPath clearBgView.layer.addSublayer(line) */ // 遮罩 let mask = CAShapeLayer() mask.path = bgPath.cgPath mask.fillRule = kCAFillRuleEvenOdd //mask.fillColor = UIColor.black.cgColor //mask.opacity = 0.7 clearBgView.layer.addSublayer(mask) DispatchQueue.main.async &#123; //... 在这里添加或修改 image/label &#125; &#125; 每次点击，就调用self.setNeedsDisplay()，唤起drawRect方法重绘视图 hollowPath ：镂空路径。每次点击就根据传入的hollowRects数组修改镂空path的rect，并且重新将hollowPath append 到 bgPath，设置了EvenOdd属性之后，则重叠部分路径才会渲染（奇偶原则，偶数路径内视为外部，不填充） clearBgView：自定义在视图控制器视图上的背景。如果clearBgView是半透明黑色，那么直接给他设置mask遮罩就行了；如果 clearBgView是透明的，那么遮罩就必须加上fillColor填充色和opacity半透明属性。 maskView：实现半透明的遮罩。maskView要设置 **`usesEvenOddFillRule`** 为true 补充遮罩层的fillRule属性，even-odd rule与non-zero rule到底代表什么意思？ 奇偶规则(even-odd rule) 指从路径包围的区域任意点向外做一条射线，如果射线相交的边数总和为奇数，则认为该点在路径内部，填充相应区域。 如果交叉点的数量为偶数，则认为该点在路径之外，并且该区域未被填充。 非零规则(non-zero rule) 对于，从左到右路径的交叉点算作+1，从右到左路径的交叉点算作-1。 如果交叉的总和不为零，则认为该点在路径内，并且相应的区域被填充。 如果总和为0，则该点在路径之外，并且该区域未被填充。 Tips: 如果镂空部分是圆形或者椭圆形，则可以直接使clockwise属性为false，不用修改usesEvenOddFillRule属性，默认就是非零规则！也可达到镂空效果噢。 这篇文章对于这两个属性的分析就很详细： https://segmentfault.com/a/1190000022769490]]></content>
@@ -105,9 +114,9 @@
       </categories>
       <tags>
         <tag>iOS</tag>
-        <tag>基础知识</tag>
         <tag>线程锁</tag>
         <tag>多线程</tag>
+        <tag>基础知识</tag>
       </tags>
   </entry>
   <entry>
@@ -132,8 +141,8 @@
       </categories>
       <tags>
         <tag>iOS</tag>
-        <tag>修饰符</tag>
         <tag>基础知识</tag>
+        <tag>修饰符</tag>
       </tags>
   </entry>
   <entry>
