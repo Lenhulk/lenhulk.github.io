@@ -17,6 +17,8 @@ Cell中Button点击高亮反馈为何有阻滞？
 
 <!-- more -->
 
+
+
 # ScrollView手势处理原理
 
 一款优秀的产品势必要有优秀的点击反馈，但是为何你做的列表 **快速点击了cell上的按钮没有高亮，点击时间延长了才有效果！？**
@@ -49,67 +51,75 @@ Cell中Button点击高亮反馈为何有阻滞？
 
 
 
+
+
 ### delaysContentTouches
 
-不过上面的工作原理其实有一个属性开关来控制：`delaysContentTouches`（默认YES）
+不过上面的工作原理其实有一个属性开关来控制：`delaysContentTouches`（默认true）
 
 只要将scrollview的这个属性设置为false，滚动视图将会第一时间处理响应者链的手势传递！
 
 （按钮一点即亮～）
 
-
-
 这时就会立刻执行`touchesShouldBegin: withEvent: inContentView: `方法！
 
 （这个方法是最先接收到滑动事件的，优先于button的
 
-UIControlEventTouchDown，以及- (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event）
+`UIControlEventTouchDown`，以及`- (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event）`
 
-如果返回YES，touche事件沿着消息响应链传递;
+> 如果设置为true，touch事件沿着消息响应链传递;
 
-如果返回NO，表示UIScrollView接收这个滚动事件，不必沿着消息响应链传递了。
+> 如果设置为false，表示UIScrollView接收这个滚动事件，不必沿着消息响应链传递了。
 
 
 
-`touchesShouldCancelled:withEvent:`
+
+
+### touchesShouldCancelled:withEvent:
 
 当我们正在触摸屏幕的时候，如果出现了低电量、有电话呼入等等这样的系统事件时候，低电量或者电话的窗口会置为前台，这个时候touchesCancelled方法就会被调用。这大多数是由iOS系统发出的一些事件，导致触摸事件的中断，一般情况下直接调用touchesEnd即可。
 
-如果返回YES:(系统默认)是允许UIScrollView，按照消息响应链向子视图传递消息的
+> 如果返回true  ，(系统默认)是允许UIScrollView，按照消息响应链向子视图传递消息的
 
-如果返回NO:UIScrollView,就接收不到滑动事件了。
+> 如果返回false，UIScrollView,就接收不到滑动事件了。
+
+
 
 
 
 ### canCancelContentTouches
 
-这个BOOL类型的值控制content view里的触摸是否总能引发跟踪(tracking)。（默认YES）
+这个Bool类型的值控制contentview里的触摸是否总能引发跟踪(tracking)。（默认true）
 
-如果设置为NO，这消息一旦传递给subView，这scroll事件不会再发生。
+如果设置为false，这消息一旦传递给subView，这scroll事件不会再发生。
 
-如果属性值为YES并且跟踪到手指正触摸到一个内容控件，这时如果用户拖动手指的距离足够产生滚动，那么内容控件将收到一个touchesCancelled:withEvent:消息，而scroll
+> 如果属性值为true并且跟踪到手指正触摸到一个内容控件，这时如果用户拖动手指的距离足够产生滚动，那么内容控件将收到一个`touchesCancelled:withEvent:`消息，而scrollview将这次触摸作为滚动来处理。
 
-view将这次触摸作为滚动来处理。如果值为NO，一旦content
+> 如果值为false，一旦contentview开始跟踪(tracking==YES)，则无论手指是否移动，scrollView都不会滚动。
 
-view开始跟踪(tracking==YES)，则无论手指是否移动，scrollView都不会滚动。
+
+
+
 
 
 
 # 将按钮点击反馈出来
 
-为了使我的cell或者子控件上的按钮有点击效果，将delaysContentTouches设置为false，我的按钮重获了第一时间的反馈效果。
+为了使我的cell或者子控件上的按钮有点击效果，将 `delaysContentTouches`设置为false，我的按钮重获了第一时间的反馈效果。
 
-*当delaysContentTouches设置为false之后，scrollview的滑动变得迟钝了。canCancelContentTouches属性感觉一直都是false的效果，当手指经过了button（有点击高亮效果）再移开，scrollview不会接收滑动事件，UIButton吃掉了我的手势！*
+当`delaysContentTouches`设置为false之后，scrollview的滑动有时会失效， 我的手指经过了button（有点击高亮效果）再移开，scrollview不会接收滑动事件，UIButton阻挡掉了我的滑动手势！
 
-❓:不过我没有主动将canCancelContentTouches这个属性改为true，也许会有不一样的效果？
+如果同时再主动修改`canCancelContentTouches`这个属性改为true，滑动手势仍然会被阻挡😂（这个属性基本没有用到过，但是先记一下）。
 
 
 
-# 修复滑动
 
-当将手指按下时，cell上的按钮会更改颜色，这会提供视觉反馈，以确认您抬起手指时将激活哪个按钮。
 
-我需要：如果将手指从按钮上拖动，则抬起时触摸这个事件将被取消，并且该按钮的取消高亮显示，将手势变为滑动滚动scrollview。
+
+
+# 修复滑动手势
+
+**效果：**当将手指按下时，cell上的按钮会更改颜色，这会提供视觉反馈，以确认您抬起手指时将激活哪个按钮。接着用户如果将手指从按钮上拖动，则划出该按钮时，触摸这个事件将被取消，并且该按钮取消高亮显示，将用户手势变为滑动滚动scrollview。
 
 
 
@@ -185,34 +195,38 @@ final class ControlContainableCollectionView: UICollectionView {
 
 
 
-只要使用了这个两个技巧，你能保留scrollview上交互控件的良好点击反馈，又能像原生tableview一样自然的滑动取消点击cell的高亮并且变成滚动scrollview，带来更自然更好的用户体验哇！
+只要使用了这个两个技巧，你能保留scrollview上交互控件的良好点击反馈，又能像原生tableview一样自然的滑动取消点击cell的高亮并且变成滚动scrollview，带来更自然更好的用户体验哇！！！
 
 
 
-# UIGestureRecognizerDelegate
-
-当你需要在scrollView上加上滑动手势的时候，那么更加会遇到滑动手势冲突的情况。
 
 
 
- ``gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)``这个方法可以让手势继续向下一个响应者传递，手势加在ScrollView或者tableView上也不会有冲突，不需要通过offset差值去计算滑动方向，效果相当完美
+
+# UIGestureRecognizerDelegate解决scrollView嵌套问题
+
+—— 当你需要在scrollView上加上滑动手势的时候，或者遇到scrollView嵌套scrollView的时候。
+
+`*gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)*`
+
+这个方法可以让手势继续向下一个响应者传递，手势加在ScrollView或者tableView上也**不会**有冲突，不需要通过offset差值去计算滑动方向，效果相当完美。
 
 
 
-### 需求
+**比方有这样一个普通需求：**
 
-1. 上滑的时候，先不让子scrollView滑动（更改contentOffsetY为0），而是隐藏头部内容控件，再让子scrollView开始滑动
+1. 上滑的时候，先不让子scrollView滑动（更改contentOffsetY为0），而是隐藏`topView`头部内容控件，再让子scrollView开始滑动
 
-2. 下滑的时候，等子scrollView滑到最上方之后（contentOffsetY为0），再允许父ScrollView滑动，显示头部控件
+2. 下滑的时候，等子scrollView滑到最上方之后（contentOffsetY为0），再允许父ScrollView滑动，滚动到`topView`头部控件顶部
 
    
 
-### 实现
+**我们可以这样实现：**
 
 1. 创建UIScrollView的子类，实现代理UIGestureRecognizerDelegate的`gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)`方法；返回true，让滑动事件可以向父View传递：
 
 ```swift
-class myScrollView: UIScrollView, UIGestureRecognizerDelegate {
+class MyScrollView: UIScrollView, UIGestureRecognizerDelegate {
 	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
@@ -221,33 +235,38 @@ class myScrollView: UIScrollView, UIGestureRecognizerDelegate {
 
 2. 实现代理方法：（例子）
 
-   ```swift
-   extension CollisionViewController: UIScrollViewDelegate {
-   	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-   		if scrollView == self.scrollView {
-   			lastOffsetY = self.scrollView.contentOffset.y
-   		}
-   	}
-   	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-   		if scrollView == self.scrollView {
-   			let y = (self.view.superview?.superview?.superview?.y)! - PageViewControllerPlus.topNaviBarHeight
-   			if self.scrollView.contentOffset.y > lastOffsetY {
-   				// 下滑
-   				if superContainerScrollView!.contentOffset.y <= y {
-   					self.scrollView.contentOffset.y = 0
-   				}
-   			} else if self.scrollView.contentOffset.y < lastOffsetY {
-   				//上滑
-   				if self.scrollView.contentOffset.y > 0 {
-   					superContainerScrollView?.contentOffset.y = y + PageViewControllerPlus.topNaviBarHeight
-   				}
-   			}
-   		}
-   	}
-   }
-   ```
+```swift
+extension CollisionViewController: UIScrollViewDelegate {
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		if scrollView == self.myScrollView {
+      // 记录子scrollview的初始y轴位移
+			_lastOffsetY = self.myScrollView.contentOffset.y
+		}
+	}
+  
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		if scrollView == self.myScrollView {
+      // anchor反正就是topView的底部距离，设为一个产生形变的锚点
+			let anchorY = <topView>.bottom
+			if self.scrollView.contentOffset.y > _lastOffsetY {
+				// scrollView下滑
+				if superContainerScrollView!.contentOffset.y <= anchorY {
+					self.scrollView.contentOffset.y = 0
+          //这里可以做隐藏navigationBar的操作..
+				}
+			} else if self.scrollView.contentOffset.y < _lastOffsetY {
+				// scrollView上滑
+				if self.scrollView.contentOffset.y <= 0 {
+					superContainerScrollView?.setContentOffset(anchorY animated: true)
+          //这里可以做显示navigationBar的操作..
+				}
+			}
+		}
+	}
+}
+```
 
-   
+
 
 
 
