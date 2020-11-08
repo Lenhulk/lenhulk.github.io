@@ -227,8 +227,11 @@ final class ControlContainableCollectionView: UICollectionView {
 
 ```swift
 class MyScrollView: UIScrollView, UIGestureRecognizerDelegate {
+  
+  var isSimultaneousGesture: bool = true
+  
 	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-		return true
+		return self.isSimultaneousGesture
 	}
 }
 ```
@@ -248,16 +251,24 @@ extension CollisionViewController: UIScrollViewDelegate {
 		if scrollView == self.myScrollView {
       // anchor反正就是topView的底部距离，设为一个产生形变的锚点
 			let anchorY = <topView>.bottom
+      
 			if self.scrollView.contentOffset.y > _lastOffsetY {
 				// scrollView下滑
 				if superContainerScrollView!.contentOffset.y <= anchorY {
 					self.scrollView.contentOffset.y = 0
+          superContainerScrollView?.setContentOffset(CGPoint(0, anchorY) animated: true)
+          //让手势透传属性变为false
+          scrollView.isSimultaneousGesture = false
           //这里可以做隐藏navigationBar的操作..
 				}
+        
 			} else if self.scrollView.contentOffset.y < _lastOffsetY {
 				// scrollView上滑
-				if self.scrollView.contentOffset.y <= 0 {
-					superContainerScrollView?.setContentOffset(anchorY animated: true)
+				if self.scrollView.contentOffset.y < 0 {
+          self.scrollView.contentOffset.y = 0
+					superContainerScrollView?.setContentOffset(CGPoint(0, 0) animated: true)
+          //让手势透传属性变为true
+          scrollView.isSimultaneousGesture = true
           //这里可以做显示navigationBar的操作..
 				}
 			}
