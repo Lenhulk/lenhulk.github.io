@@ -2,7 +2,7 @@
 title: iOS-swift单例&可销毁单例
 date: 2020-04-01 23:54:45
 tags: [iOS,swift,Singleton]
-
+Categories: iOS
 ---
 
 <div class="note primary"><p>这可能是你学过的第一种设计模式</p></div>
