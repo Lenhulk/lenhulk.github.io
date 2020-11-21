@@ -155,18 +155,18 @@
 
 
 
-  <meta name="description" content="小知识点。">
-<meta name="keywords" content="iOS,基础知识,修饰符">
+  <meta name="description" content="这可能是你学过的第一种函数">
+<meta name="keywords" content="iOS,遍历">
 <meta property="og:type" content="article">
-<meta property="og:title" content="assign VS weak? __weak VS __block?">
-<meta property="og:url" content="https://emneoma.xyz/assign-VS-weak-block-VS-weak.html">
+<meta property="og:title" content="iOS中的遍历方法与技巧">
+<meta property="og:url" content="https://emneoma.xyz/iOS中的遍历方法与技巧.html">
 <meta property="og:site_name" content="麻瓜的自我修养">
-<meta property="og:description" content="小知识点。">
+<meta property="og:description" content="这可能是你学过的第一种函数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-31T14:44:16.079Z">
+<meta property="og:updated_time" content="2020-11-21T16:02:54.541Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="assign VS weak? __weak VS __block?">
-<meta name="twitter:description" content="小知识点。">
+<meta name="twitter:title" content="iOS中的遍历方法与技巧">
+<meta name="twitter:description" content="这可能是你学过的第一种函数">
 
 
 
@@ -174,7 +174,7 @@
 
   
   
-  <link rel="canonical" href="https://emneoma.xyz/assign-VS-weak-block-VS-weak">
+  <link rel="canonical" href="https://emneoma.xyz/iOS中的遍历方法与技巧">
 
 
 
@@ -184,7 +184,7 @@
   };
 </script>
 
-  <title>assign VS weak? __weak VS __block? | 麻瓜的自我修养</title>
+  <title>iOS中的遍历方法与技巧 | 麻瓜的自我修养</title>
   
 
 
@@ -410,7 +410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://emneoma.xyz/assign-VS-weak-block-VS-weak.html">
+    <link itemprop="mainEntityOfPage" href="https://emneoma.xyz/iOS中的遍历方法与技巧.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="EDWIIN">
@@ -427,7 +427,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">assign VS weak? __weak VS __block?
+          <h2 class="post-title" itemprop="name headline">iOS中的遍历方法与技巧
 
               
             
@@ -453,7 +453,7 @@
                 
               
 
-              <time title="创建时间：2019/06/11 01:10:44" itemprop="dateCreated datePublished" datetime="2019-06-11T01:10:44+08:00">2019/06/11</time>
+              <time title="创建时间：2020/11/21 23:03:54" itemprop="dateCreated datePublished" datetime="2020-11-21T23:03:54+08:00">2020/11/21</time>
             
 
             
@@ -470,29 +470,11 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020/03/31 22:44:16" itemprop="dateModified" datetime="2020-03-31T22:44:16+08:00">2020/03/31</time>
+                <time title="修改时间：2020/11/22 00:02:54" itemprop="dateModified" datetime="2020-11-22T00:02:54+08:00">2020/11/22</time>
               
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -524,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.5k</span>
+                <span title="本文字数">3.1k</span>
               
 
               
@@ -538,7 +520,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -558,40 +540,58 @@
       
 
       
-        <div class="note info"><p>小知识点。</p></div>
-
-
+        <div class="note primary"><p>这可能是你学过的第一种函数</p></div>
 
 <a id="more"></a>
 
-<h1 id="assign"><a href="#assign" class="headerlink" title="assign"></a>assign</h1><p><strong>assign</strong> 用于基础类型的赋值，不改变属性的引用计数。如：<em>NSInteger, CGFloat, int float double</em></p>
-<blockquote><p>assign其实也可以用来修饰对象，但是你可不要轻易尝试。因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续的内存分配中，刚好分到了这块地址，程序就会崩溃掉。</p>
-</blockquote>
+<h1 id="ios中的遍历方法"><a href="#ios中的遍历方法" class="headerlink" title="ios中的遍历方法"></a>ios中的遍历方法</h1><h2 id="经典for循环"><a href="#经典for循环" class="headerlink" title="经典for循环"></a>经典for循环</h2><p>又叫“C循环”，也就是（for/while） 方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; [array count]; i++) &#123;</span><br><span class="line">  <span class="keyword">id</span> object = array[i];</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, object)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="weak"><a href="#weak" class="headerlink" title="weak"></a>weak</h1><p><strong>weak</strong> 用于对象类型，不改变属性的引用计数，当该对象被释放的时候，该弱引用的属性自动失效并且被赋值为<strong><em>nil</em></strong>，该属性可以避免循环引用问题。</p>
-<h1 id="weak-1"><a href="#weak-1" class="headerlink" title="__weak"></a>__weak</h1><p><strong>__weak</strong>是所有权修饰符，被修饰的变量在使用结束后会被释放 置nil，其也不会在block代码块中被retain。<br>所有权修饰符包括: __strong,  __weak,  unsafe_unretained,  __autorealease。</p>
-<blockquote><p>使用<strong>unsafe_unretained 和 __weak都可以避免循环引用的问题，但由于前者是在iOS4.0以前</strong>weak的替代品，不会被自动置nil，会造成野指针问题，所以我们果断抛弃吧</p>
-</blockquote>
+<p>但是用过 C 风格循环的人也都知道，这个方法容易导致 <a href="https://zh.wikipedia.org/wiki/差一错误" target="_blank" rel="noopener">差一错误</a>，当使用经典for做遍历删除操作的时候也会导致崩溃，同时它也是一个单线程的方法。</p>
+<p>因此，Smalltalk 使用一种叫做 <a href="https://en.wikipedia.org/wiki/List_comprehension" target="_blank" rel="noopener">列表生成式</a> 的方法改善了这个问题，也就是大家今天所熟知的 <code>for/in</code> 循环。</p>
+<h2 id="for-in-NSFastEnumeration"><a href="#for-in-NSFastEnumeration" class="headerlink" title="for/in (NSFastEnumeration)"></a>for/in (NSFastEnumeration)</h2><p>通过使用高层抽象，表明我们想遍历一个集合当中的所有元素，这种方法不仅减少了错误的发生，同时也减少了代码量：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> object <span class="keyword">in</span> array) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, object);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="block"><a href="#block" class="headerlink" title="__block"></a>__block</h1><p><strong>__block</strong>用于指明当前变量可以在block内部进行修改（ARC下会被retain）。</p>
-<blockquote><p>因为在block申明的同时会捕获该block所使用的全部自动变量的值，仅有使用权没有修改权利，使用了__block关键字修饰后的变量可以在block内部进行修改。</p>
-</blockquote>
+<p>在 Cocoa 当中，生成式方法可以用在任何实现了 <code>NSFastEnumeration</code> 协议的类上，包括 <code>NSArray</code>, <code>NSSet</code>, 和 <code>NSDictionary</code>。</p>
+<p>对于 <code>NSFastEnumeration</code> 你需要了解的是它 <em>很快</em> 。哪怕没有很明显的超过，也至少和你自己使用 <code>for</code> 循环是一样快的。高速背后的秘密是 <code>-countByEnumeratingWithState:objects:count:</code> 这个函数，它会缓存集合成员，并按需加载。和单线程的 <code>for</code> 循环实现不同的是，对象的加载是可以并发的，以最大程度利用系统资源。且该方法做遍历删除操作不会导致崩溃。</p>
+<p>因此苹果推荐在可能的情况下使用 <code>NSFastEnumeration</code> <code>for/in</code> 风格进行集合的遍历。</p>
+<h2 id="使用-Blocks-进行遍历"><a href="#使用-Blocks-进行遍历" class="headerlink" title="使用 Blocks 进行遍历"></a>使用 Blocks 进行遍历</h2><ul>
+<li><p><strong>enumerateObjectsUsingBlock</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array enumerateObjectsUsingBlock:^(<span class="keyword">id</span> object, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, object);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
-<p>在block内，要避免循环引用要使用：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__weak__typeof(<span class="keyword">self</span>)weakSelf =<span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<p>诸如 <code>NSArray</code>, <code>NSSet</code>, <code>NSDictionary</code>，和 <code>NSIndexSet</code> 这些集合类型都包含了一系列类似的 block 遍历方法。</p>
+<p>这种方法的一个优势是当前对象的索引 （<code>idx</code>）会跟随对象传递进来。<code>BOOL</code> 指针可以用于提前返回，相当于传统 C 循环当中的 <code>break</code> 语句。</p>
+<p>除非你真的需要在遍历时使用数字索引，使用 <code>for/in</code> <code>NSFastEnumeration</code> 几乎总是更快的选择。</p>
+<p>重点是，这个系列方法还有带有 <code>options</code> 参数的扩展版本：</p>
+</li>
+<li><p><strong>enumerateObjectsWithOptions(NSEnumerationConcurrent)</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)enumerateObjectsWithOptions:(<span class="built_in">NSEnumerationOptions</span>)opts</span><br><span class="line">                         usingBlock:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop))block</span><br></pre></td></tr></table></figure>
 
-<p>并且，在使用到self之后的对象或者属性防止在使用之前被析构引发不可预测的问题，所以要使用strong再把它持有一下。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__strong__typeof(weakSelf)strongSelf = weakSelf;</span><br></pre></td></tr></table></figure>
+<p><code>NSEnumerationOptions</code>包含：NSEnumerationConcurrent和NSEnumerationReverse，见名知意，一个是并发式遍历，另一个是反向遍历。</p>
+</li>
+</ul>
+<h2 id="dispatch-apply（快速迭代）"><a href="#dispatch-apply（快速迭代）" class="headerlink" title="dispatch_apply（快速迭代）"></a>dispatch_apply（快速迭代）</h2><p>GCD 给我们提供了一种快速迭代方法 <code>dispatch_apply</code>，<code>dispatch_apply</code> 函数是 <code>dispatch_sync</code> 函数和 <code>Dispatch Group</code> 的关联 API，该函数按照指定的次数将指定的任务追加到指定队列中，并等待全部任务执行结束，系统会根据实际情况自动分配和管理线程。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dispatch_apply(count, dispatch_queue_create(<span class="literal">nil</span>, DISPATCH_QUEUE_CONCURRENT), ^(size_t index) &#123;</span><br><span class="line">    [<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">1</span>]; <span class="comment">// 模拟耗时操作</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%zu -- %@"</span>, index, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h2 id="易混淆点"><a href="#易混淆点" class="headerlink" title="易混淆点"></a>易混淆点</h2><p>若 object 本身沒有去 retain 这个 block (即block不是某个对象的property)，則可以直接在 block 中使用 self。<br>比如自定义的block块（一个匿名函数）在代码中执行；经常问到的animation动画是否需要使用weakblock的问题。</p>
-<div class="note default">事实上大多數的 iOS 原生套件，以及 GCD 的 block 是不會造成 retain cycle 的，因为他们并沒有去 retain block。</div>
+<h1 id="遍历代码性能选择"><a href="#遍历代码性能选择" class="headerlink" title="遍历代码性能选择"></a>遍历代码性能选择</h1><ul>
+<li><p>对于集合中对象数很多的情况下，<code>for in (NSFastEnumeration)</code>的遍历速度非常之快</p>
+</li>
+<li><p><code>enumerateObjectsWithOptions(NSEnumerationConcurrent)</code>和<code>dispatch_apply(Concurrent)</code>的遍历执行可以利用到多核cpu的优势，执行耗时操作效率更高</p>
+</li>
+</ul>
+<h1 id="遍历日常开发Tips"><a href="#遍历日常开发Tips" class="headerlink" title="遍历日常开发Tips"></a>遍历日常开发Tips</h1><h2 id="倒序遍历"><a href="#倒序遍历" class="headerlink" title="倒序遍历"></a>倒序遍历</h2><p><code>NSArray</code>和<code>NSOrderedSet</code>都支持使用<code>reverseObjectEnumerator</code>倒序遍历，如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *strings = @[<span class="string">@"1"</span>, <span class="string">@"2"</span>, <span class="string">@"3"</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *string <span class="keyword">in</span> [strings reverseObjectEnumerator]) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>特别要注意的是，讲一个变量直接定义为实例变量而非属性的时候，在block中使用时还是会retain到self导致循环引用，因为ivar也是self的一部分：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XXXViewController</span> () </span>&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">self</span>.completionHandler = ^&#123;</span><br><span class="line">    <span class="comment">// 直接引用就相当于 self-&gt;str</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法只在循环第一次被调用，所以也不必担心循环每次计算的问题。</p>
+<p>同时，使用<code>enumerateObjectsWithOptions:NSEnumerationReverse</code>也可以实现倒序遍历：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array enumerateObjectsWithOptions:<span class="built_in">NSEnumerationReverse</span> usingBlock:^(Sark *sark, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    [sark doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
-<p>但是！ivar是无法用weakSelf去取值的，因此<br>这里正确的做法还是要用到weakSelf和strongSelf的帮助：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> __<span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line"><span class="keyword">self</span>.completionHandler = ^&#123;</span><br><span class="line">    __<span class="keyword">strong</span> __<span class="keyword">typeof</span>(weakSelf) strongSelf = weakSelf;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, strongSelf-&gt;str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用block同时遍历字典key，value"><a href="#使用block同时遍历字典key，value" class="headerlink" title="使用block同时遍历字典key，value"></a>使用block同时遍历字典key，value</h2><p>block版本的字典遍历可以同时取key和value（forin只能取key再手动取value）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dict = @&#123;<span class="string">@"a"</span>: <span class="string">@"1"</span>, <span class="string">@"b"</span>: <span class="string">@"2"</span>&#125;;</span><br><span class="line">[dict enumerateKeysAndObjectsUsingBlock:^(<span class="keyword">id</span> key, <span class="keyword">id</span> obj, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"key: %@, value: %@"</span>, key, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
+<h2 id="对于耗时且顺序无关的遍历，使用并发版本"><a href="#对于耗时且顺序无关的遍历，使用并发版本" class="headerlink" title="对于耗时且顺序无关的遍历，使用并发版本"></a>对于耗时且顺序无关的遍历，使用并发版本</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array enumerateObjectsWithOptions:<span class="built_in">NSEnumerationConcurrent</span> usingBlock:^(Sark *sark, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    [sark doSomethingSlow];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<p>遍历执行block会分配在多核cpu上执行（底层很可能就是gcd的并发queue），对于耗时的任务来说是很值得这么做的。同时，对于遍历的外部是保持同步的（遍历都完成后才继续执行下一行），这个特性和dispatch_apply一致，如果要防止该特性可以在外部再嵌套一层<code>dispatch_async()</code>方法。</p>
 
       
     </div>
@@ -617,9 +617,7 @@
           
             <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
           
-            <a href="/tags/基础知识/" rel="tag"><i class="fa fa-tag"></i> 基础知识</a>
-          
-            <a href="/tags/修饰符/" rel="tag"><i class="fa fa-tag"></i> 修饰符</a>
+            <a href="/tags/遍历/" rel="tag"><i class="fa fa-tag"></i> 遍历</a>
           
         </div>
       
@@ -632,8 +630,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/iOS内存管理原理浅谈.html" rel="next" title="iOS内存管理原理浅谈">
-                <i class="fa fa-chevron-left"></i> iOS内存管理原理浅谈
+              <a href="/深入理解-synthesize和-dynamic.html" rel="next" title="深入理解@synthesize和@dynamic">
+                <i class="fa fa-chevron-left"></i> 深入理解@synthesize和@dynamic
               </a>
             
           </div>
@@ -641,10 +639,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/atomic一定是线程安全的吗？.html" rel="prev" title="atomic一定是线程安全的吗？">
-                atomic一定是线程安全的吗？ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -904,7 +898,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#assign"><span class="nav-number">1.</span> <span class="nav-text">assign</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#weak"><span class="nav-number">2.</span> <span class="nav-text">weak</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#weak-1"><span class="nav-number">3.</span> <span class="nav-text">__weak</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#block"><span class="nav-number">4.</span> <span class="nav-text">__block</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#易混淆点"><span class="nav-number">4.1.</span> <span class="nav-text">易混淆点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ios中的遍历方法"><span class="nav-number">1.</span> <span class="nav-text">ios中的遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典for循环"><span class="nav-number">1.1.</span> <span class="nav-text">经典for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in-NSFastEnumeration"><span class="nav-number">1.2.</span> <span class="nav-text">for/in (NSFastEnumeration)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Blocks-进行遍历"><span class="nav-number">1.3.</span> <span class="nav-text">使用 Blocks 进行遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-apply（快速迭代）"><span class="nav-number">1.4.</span> <span class="nav-text">dispatch_apply（快速迭代）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历代码性能选择"><span class="nav-number">2.</span> <span class="nav-text">遍历代码性能选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历日常开发Tips"><span class="nav-number">3.</span> <span class="nav-text">遍历日常开发Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#倒序遍历"><span class="nav-number">3.1.</span> <span class="nav-text">倒序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用block同时遍历字典key，value"><span class="nav-number">3.2.</span> <span class="nav-text">使用block同时遍历字典key，value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于耗时且顺序无关的遍历，使用并发版本"><span class="nav-number">3.3.</span> <span class="nav-text">对于耗时且顺序无关的遍历，使用并发版本</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1116,7 +1110,7 @@
   
     <script>
   window.livereOptions = {
-    refer: 'assign-VS-weak-block-VS-weak.html'
+    refer: 'iOS中的遍历方法与技巧.html'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
